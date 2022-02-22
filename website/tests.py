@@ -37,7 +37,7 @@ class MonsterTest(TestCase):
         for i in range(len(expected)):
             self.assertEqual(testing[i], expected[i])
 
-class GiveUserMonster(TestCase):
+class GiveUserMonsterTest(TestCase):
 
     def test_give_monster(self):
         user = User(username="username", password="password")
@@ -45,3 +45,19 @@ class GiveUserMonster(TestCase):
         monsterTwo = Monster(name="monsterTwo")
         user.monster = monster
         self.assertTrue(user.monster == monster)
+
+class AddUserToRoomTest(TestCase):
+    
+    def test_add_room(self):
+        user = User(username="username", password="password")
+        room = Room(name="room")
+        self.assertEqual(user.add_room(room), "Added")
+        room.USERS_IN_ROOM = 5
+        self.assertEqual(user.add_room(room), "Full")
+
+class ItemTest(TestCase):
+
+    def test_create(self):
+        item = Item(name="item", price=50, effect_description="something")
+        self.assertIsNotNone(item.price)
+        self.assertEqual(item.name, "item")
