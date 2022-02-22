@@ -31,6 +31,23 @@ class Monster(models.Model):
             self.attack += 20
             self.exp = 0  
 
+class Room(models.Model):
+    MAX_USERS = 5
+    MAX_NAME_LENGTH = 30
+    USERS_IN_ROOM = 0
+
+    name = models.CharField(unique = True, max_length = MAX_NAME_LENGTH)
+
+class Item(models.Model):
+    MAX_NAME_LENGTH = 30
+    MAX_PRICE = 500
+    MAX_EFFECT_DESCRIPTION = 30
+
+    name = models.CharField(unique = True, max_length = MAX_NAME_LENGTH)
+    price = models.IntegerField(validators=[MaxValueValidator(MAX_PRICE,
+                                            MinValueValidator(0))])
+    effect_description = models.CharField(null = False, max_length = MAX_EFFECT_DESCRIPTION)
+    effect = models.IntegerField(null = False)
 
 class User(models.Model):
     MAX_COINS = 1000
@@ -38,16 +55,27 @@ class User(models.Model):
     MAX_USERNAME_LENGTH = 30
     MAX_WINS = 15
 
-    username = models.CharField(max_length = MAX_USERNAME_LENGTH)
+    username = models.CharField(unique=True, max_length = MAX_USERNAME_LENGTH)
     password = models.CharField(max_length = MAX_PASSWORD_LENGTH)
     wins = models.IntegerField(default = 0, validators=[MaxValueValidator(MAX_WINS),
                                            MinValueValidator(0)])
     monster = models.OneToOneField(Monster, on_delete=models.SET_NULL, default = None, null=True)
     coins = models.IntegerField(default = 0, validators=[MaxValueValidator(MAX_COINS),
                                            MinValueValidator(0)])
+    room = models.ForeignKey(Room, null=True, on_delete=models.SET_NULL, default = None)
+
+    #method to add a room.
+    def add_room(self, room: Room):
+        if room.USERS_IN_ROOM < room.MAX_USERS:
+            self.room = room
+            room.USERS_IN_ROOM += 1
+            return "Added"
+        else: 
+            return "Full"
 
     #method to add coins to a User.
     def add_coins(self, coin_amount):
         if coin_amount > 0:
             self.coins = self.MAX_COINS if coin_amount > self.MAX_COINS \
                             else self.coins + coin_amount
+    
