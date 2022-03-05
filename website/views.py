@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 # Create your views here.
 
 
@@ -19,9 +20,9 @@ def shop(request):
     return render(request, 'shop.html')
 
 
-def elements(request):
-    return render(request, 'elements.html')
+def room(request):
+    return render(request, 'room.html')
 
 
-def userProfile(request):
+def userprofile(request):
     return render(request, 'user-profile.html')
