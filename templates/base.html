@@ -38,10 +38,8 @@
                     {% else %}
                     <!-- Show these links when the user is NOT logged in -->
                     <li><a href="{% url 'register' %}">Register</a></li>
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'login' %}" class="button primary">Login</a></li>
                     {% endif %}
-
-
                 </ul>
             </nav>
         </header>

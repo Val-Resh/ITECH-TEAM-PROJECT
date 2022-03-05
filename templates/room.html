@@ -2,7 +2,8 @@
 {% load staticfiles %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/css/room.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -10,6 +11,15 @@ Room
 {% endblock %}
 
 {% block body_block %}
+<section id="banner">
+	<div class="content">
+		<h1>abd</h1>
+		<h2>Time To Study!</h2>
+		<span class="clock"></span>
+	</div>
+	<a href="#room" class="goto-next scrolly">Next</a>
+</section>
+
 <div id="main" class="wrapper style1">
 	<div class="container">
 		<header class="major">

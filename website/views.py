@@ -1,13 +1,25 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from website.forms import UserForm
+from website.forms import UserForm, RoomForm
 from django.http import HttpResponse
 from django.urls import reverse
+from website.models import Room
 
 
 def index(request):
-    return render(request, 'index.html')
+    form = RoomForm()
+    # A HTTP POST?
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('/')
+        else:
+            print(form.errors)
+
+    room_list = Room.objects.order_by('-name')[:4]
+    return render(request, 'index.html', {'form': form, 'rooms': room_list})
 
 
 def user_login(request):
@@ -68,14 +80,17 @@ def register(request):
     return render(request, 'register.html', context={'user_form': user_form})
 
 
+@login_required
 def shop(request):
     return render(request, 'shop.html')
 
 
+@login_required
 def room(request):
     return render(request, 'room.html')
 
 
+@login_required
 def userprofile(request):
     return render(request, 'user-profile.html')
 
