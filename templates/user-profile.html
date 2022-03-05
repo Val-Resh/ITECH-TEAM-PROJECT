@@ -1,86 +1,45 @@
-<!DOCTYPE HTML>
-
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-<html>
-	<head>
-		<title>User Profile - StudyMonster</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
-		<link rel="stylesheet" href="{% static 'assets/css/user.css' %}" />
-		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
-	</head>
-	<body class="is-preload landing">
-		<div id="page-wrapper">
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/user.css' %}" />
+{% endblock %}
 
-			<!-- Header -->
-				<header id="header">
-					<h1 id="logo"><a href="/studymonster/"><img src="{% static 'images/logo.png' %}" alt="" height="60" /></a></h1>
-					<nav id="nav">
-						<ul>
-							<li><a href="/">Study rooms</a></li>
-							<li><a href="/shop">Shop</a></li>
-							<li><a href="/userprofile">User profile</a></li>
-							<li><a href="/login" class="button primary">Log in</a></li>
-						</ul>
-					</nav>
-				</header>
+{% block title_block %}
+User Profile
+{% endblock %}
 
-			<!-- Main -->
-			<section id="banner">
-				<div class="content">
-					<div class="container">
-						<!-- Checkbox for manipulation   -->
-						<input type="checkbox" id="switch" name="switch">
+{% block body_block %}
+<section id="banner">
+	<div class="content">
+		<div class="container">
+			<!-- Checkbox for manipulation   -->
+			<input type="checkbox" id="switch" name="switch">
 
-						<div class="card-wrapper">
-							<div class="card-front">
-								<div class="card-links">
-									<span class="fa fa-instagram"></span>
-									<span class="fa fa-link"></span>
-								</div>
-								<div class="card-user">
-									<img src="https://unsplash.it/200/200" alt="User Card by Ashish Mehra"/>
-									<span>2516812Z<i>@gla.ac.uk</i></span>
-									<div class="user-info">
-										<span>71<b>Posts</b></span>
-										<span>532<b>Followers</b></span>
-										<span>451<b>Following</b></span>
-									</div>
-								</div>
-							</div>
-							<div class="card-back"></div>
+			<div class="card-wrapper">
+				<div class="card-front">
+					<div class="card-links">
+						<span class="fa fa-instagram"></span>
+						<span class="fa fa-link"></span>
+					</div>
+					<div class="card-user">
+						<img src="https://unsplash.it/200/200" alt="User Card by Ashish Mehra" />
+						<span>2516812Z<i>@gla.ac.uk</i></span>
+						<div class="user-info">
+							<span>71<b>Posts</b></span>
+							<span>532<b>Followers</b></span>
+							<span>451<b>Following</b></span>
 						</div>
-
 					</div>
 				</div>
-			</section>
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; All rights reserved.</li><li>Design: GOTTA CATCH THEM ALL</a></li>
-					</ul>
-				</footer>
+				<div class="card-back"></div>
+			</div>
 
 		</div>
+	</div>
+</section>
+{% endblock %}
 
-		<!-- Scripts -->
-			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
-			<script src="{% static 'assets/js/browser.min.js' %}"></script>
-			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
-			<script src="{% static 'assets/js/util.js' %}"></script>
-			<script src="{% static 'assets/js/main.js' %}"></script>
-	</body>
-</html>
+{% block scripts_block %}
+<script src="{% static 'assets/js/room.js' %}"></script>
+{% endblock %}

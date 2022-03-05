@@ -1,88 +1,34 @@
-<!DOCTYPE HTML>
-
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-<html>
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+{% endblock %}
 
-<head>
-	<title>Register - StudyMonster</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
-	<link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
-	<noscript>
-		<link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
-	</noscript>
-</head>
+{% block title_block %}
+Register
+{% endblock %}
 
-<body class="is-preload landing">
-	<div id="page-wrapper">
+{% block body_block %}
+<section id="banner">
+	<div class="content">
+		<form id="user_form" method="post" action="{%url 'register' %}" enctype="multipart/form-data">
+			{% csrf_token %}
+			<h3>Register</h3>
+			{{user_form.as_p}}
+			<!-- <label for="username">Username</label>
+					<input type="text" placeholder="Email or Phone" id="username">
 
-		<!-- Header -->
-		<header id="header">
-			<h1 id="logo"><a href="/studymonster/"><img src="{% static 'images/logo.png' %}" alt="" height="60" /></a>
-			</h1>
-			<nav id="nav">
-				<ul>
-					<li><a href="/">Study rooms</a></li>
-					<li><a href="/shop">Shop</a></li>
-					<li><a href="/userprofile">User profile</a></li>
-					<li><a href="/login" class="button primary">Log in</a></li>
-				</ul>
-			</nav>
-		</header>
+					<label for="password">Password</label>
+					<input type="password" placeholder="Password" id="password">
 
-		<!-- Banner -->
-		<section id="banner">
-			<div class="content">
-				<form id="user_form" method="post" action="{%url 'register' %}" enctype="multipart/form-data">
-					{% csrf_token %}
-					<h3>Register</h3>
-					{{user_form.as_p}}
+					<label for="passwordconfirmation">Confirm Password</label>
+					<input type="password" placeholder="Confirm Password" id="passwordconfirmation"> -->
 
-					<!-- <label for="username">Username</label>
-							<input type="text" placeholder="Email or Phone" id="username">
-
-							<label for="password">Password</label>
-							<input type="password" placeholder="Password" id="password">
-
-							<label for="passwordconfirmation">Confirm Password</label>
-							<input type="password" placeholder="Confirm Password" id="passwordconfirmation"> -->
-
-					<button class="button primary">Register</button>
-					<span>Already had an account? Go to <a href="/login">Log In</a></span>
-				</form>
-			</div>
-		</section>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<ul class="icons">
-				<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-				<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-				<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-				<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-			</ul>
-			<ul class="copyright">
-				<li>&copy; All rights reserved.</li>
-				<li>Design: GOTTA CATCH THEM ALL</a></li>
-			</ul>
-		</footer>
-
+			<button class="button primary">Register</button>
+			<span>Already had an account? Go to <a href="/login">Log In</a></span>
+		</form>
 	</div>
-
-	<!-- Scripts -->
-	<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-	<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
-	<script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
-	<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
-	<script src="{% static 'assets/js/browser.min.js' %}"></script>
-	<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
-	<script src="{% static 'assets/js/util.js' %}"></script>
-	<script src="{% static 'assets/js/main.js' %}"></script>
-
-</body>
-
-</html>
+</section>
+{% endblock %}
