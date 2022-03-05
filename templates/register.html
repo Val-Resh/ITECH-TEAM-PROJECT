@@ -1,78 +1,88 @@
 <!DOCTYPE HTML>
+
+{% load staticfiles %}
+
 <html>
-	<head>
-		<title>StudyMonster</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/form.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload landing">
-		<div id="page-wrapper">
 
-			<!-- Header -->
-				<header id="header">
-					<h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="" height="60"/></a></h1>
-					<nav id="nav">
-						<ul>
-							<li><a href="/">Study rooms</a></li>
-							<li><a href="/shop">Shop</a></li>
-							<li><a href="/user-profile">User profile</a></li>
-							<li><a href="/elements">Elements</a></li>
-							<li><a href="/login" class="button primary">Log in</a></li>
-						</ul>
-					</nav>
-				</header>
+<head>
+	<title>Register - StudyMonster</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	<link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
+	<noscript>
+		<link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
+	</noscript>
+</head>
 
-			<!-- Banner -->
-				<section id="banner">
-					<div  class="content">
-						<form >
-							<h3>Login Here</h3>
+<body class="is-preload landing">
+	<div id="page-wrapper">
 
-							<label for="username">Username</label>
+		<!-- Header -->
+		<header id="header">
+			<h1 id="logo"><a href="/studymonster/"><img src="{% static 'images/logo.png' %}" alt="" height="60" /></a>
+			</h1>
+			<nav id="nav">
+				<ul>
+					<li><a href="/">Study rooms</a></li>
+					<li><a href="/shop">Shop</a></li>
+					<li><a href="/userprofile">User profile</a></li>
+					<li><a href="/login" class="button primary">Log in</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Banner -->
+		<section id="banner">
+			<div class="content">
+				<form id="user_form" method="post" action="{%url 'register' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+					<h3>Register</h3>
+					{{user_form.as_p}}
+
+					<!-- <label for="username">Username</label>
 							<input type="text" placeholder="Email or Phone" id="username">
 
 							<label for="password">Password</label>
 							<input type="password" placeholder="Password" id="password">
 
-							<button >Log In</button>
-							<button class="button primary">Sign up</button>
-							<div class="social">
-								<div class="go"><i class="fab fa-google"></i> Google</div>
-								<div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
-							</div>
-						</form>
-					</div>
-				</section>
+							<label for="passwordconfirmation">Confirm Password</label>
+							<input type="password" placeholder="Confirm Password" id="passwordconfirmation"> -->
 
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; All rights reserved.</li><li>Design: GOTTA CATCH THEM ALL</a></li>
-					</ul>
-				</footer>
+					<button class="button primary">Register</button>
+					<span>Already had an account? Go to <a href="/login">Log In</a></span>
+				</form>
+			</div>
+		</section>
 
-		</div>
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+				<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; All rights reserved.</li>
+				<li>Design: GOTTA CATCH THEM ALL</a></li>
+			</ul>
+		</footer>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+	</div>
 
-	</body>
+	<!-- Scripts -->
+	<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+	<script src="{% static 'assets/js/browser.min.js' %}"></script>
+	<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+	<script src="{% static 'assets/js/util.js' %}"></script>
+	<script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
 </html>
