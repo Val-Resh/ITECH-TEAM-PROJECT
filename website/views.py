@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from website.forms import UserForm, RoomForm
 from django.http import HttpResponse
 from django.urls import reverse
-from website.models import Room
+from website.models import Room, Item
 
 
 def index(request):
@@ -82,20 +82,21 @@ def register(request):
 
 @login_required
 def shop(request):
-    return render(request, 'shop.html')
+    item_list = Item.objects.order_by('-name')
+    return render(request, 'shop.html', {'items': item_list})
 
 
-@login_required
+@ login_required
 def room(request):
     return render(request, 'room.html')
 
 
-@login_required
+@ login_required
 def userprofile(request):
     return render(request, 'user-profile.html')
 
 
-@login_required
+@ login_required
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
