@@ -1,187 +1,142 @@
-<!DOCTYPE HTML>
-
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-<html>
-	<head>
-		<title>Shop - StudyMonster</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
-		<link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
-		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
-	</head>
-	<body class="is-preload landing">
-		<div id="page-wrapper">
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
+{% endblock %}
 
-			<!-- Header -->
-				<header id="header">
-					<h1 id="logo"><a href="/studymonster/"><img src="{% static 'images/logo.png' %}" alt="" height="60" /></a></h1>
-					<nav id="nav">
-						<ul>
-							<li><a href="/">Study rooms</a></li>
-							<li><a href="/shop">Shop</a></li>
-							<li><a href="/userprofile">User profile</a></li>
-							<li><a href="/login" class="button primary">Log in</a></li>
-						</ul>
-					</nav>
-				</header>
+{% block title_block %}
+Shop
+{% endblock %}
 
-			<!-- Main -->
-
-			<div class="wrapper">
-				<h1>Shop</h1>
-				<div class="cols">
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
-								<div class="inner">
-									<p>Apple</p>
-									<span>Cost: 1</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Health + 1</p>
-								</div>
-							</div>
-						</div>
+{% block body_block %}
+<div class="wrapper">
+	<h1>Shop</h1>
+	<div class="cols">
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
+					<div class="inner">
+						<p>Apple</p>
+						<span>Cost: 1</span>
 					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="url(https://unsplash.it/511/511/)">
-								<div class="inner">
-									<p>Cookies</p>
-									<span>Cost: 2</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Health + 2</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(https://unsplash.it/502/502/)">
-								<div class="inner">
-									<p>Energy drink</p>
-									<span>Cost: 5</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Attack + 3</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(https://unsplash.it/503/503/)">
-								<div class="inner">
-									<p>Suger</p>
-									<span>Cost: 2</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Happy + 10</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(https://unsplash.it/504/504/">
-								<div class="inner">
-									<p>Coffee</p>
-									<span>Cost: 1.5</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Energy + 100</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(https://unsplash.it/505/505/)">
-								<div class="inner">
-									<p>Cola</p>
-									<span>Cost: 2</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Happy + 250</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(https://unsplash.it/506/506/)">
-								<div class="inner">
-									<p>Diamonds</p>
-									<span>Cost: 100</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>It doesn't work. It's just beautiful. I want to buy it because I am rich and willful.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(https://unsplash.it/508/508/)">
-								<div class="inner">
-									<p>Pikachu pillow</p>
-									<span>Cost: 100</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Happy + 100</p>
-								</div>
-							</div>
-						</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Health + 1</p>
 					</div>
 				</div>
 			</div>
-
-
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; All rights reserved.</li><li>Design: GOTTA CATCH THEM ALL</a></li>
-					</ul>
-				</footer>
-
 		</div>
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="url(https://unsplash.it/511/511/)">
+					<div class="inner">
+						<p>Cookies</p>
+						<span>Cost: 2</span>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Health + 2</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/502/502/)">
+					<div class="inner">
+						<p>Energy drink</p>
+						<span>Cost: 5</span>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Attack + 3</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/503/503/)">
+					<div class="inner">
+						<p>Suger</p>
+						<span>Cost: 2</span>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Happy + 10</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/504/504/">
+					<div class="inner">
+						<p>Coffee</p>
+						<span>Cost: 1.5</span>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Energy + 100</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/505/505/)">
+					<div class="inner">
+						<p>Cola</p>
+						<span>Cost: 2</span>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Happy + 250</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/506/506/)">
+					<div class="inner">
+						<p>Diamonds</p>
+						<span>Cost: 100</span>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>It doesn't work. It's just beautiful. I want to buy it because I am rich and willful.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/508/508/)">
+					<div class="inner">
+						<p>Pikachu pillow</p>
+						<span>Cost: 100</span>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Happy + 100</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
 
-		<!-- Scripts -->
-			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
-			<script src="{% static 'assets/js/browser.min.js' %}"></script>
-			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
-			<script src="{% static 'assets/js/util.js' %}"></script>
-			<script src="{% static 'assets/js/main.js' %}"></script>
-
-	</body>
-</html>
+{% block scripts_block %}
+<script src="{% static 'assets/js/room.js' %}"></script>
+{% endblock %}
