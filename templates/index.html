@@ -2,65 +2,52 @@
 {% load staticfiles %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/room.css' %}" />
 <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
 {% endblock %}
 
 {% block title_block %}
 Home
 {% endblock %}
-<!-- Banner -->
 {% block body_block %}
+
 <section id="banner">
 	<div class="content">
-		<h1>abd</h1>
-		<h2>Time To Study!</h2>
-		<span class="clock"></span>
+		<h1>Study Room</h1>
+		{% if user.is_authenticated %}
+
+
+		<form id="room_form" method="post" action="{% url 'create_room' %}">
+			{% csrf_token %}
+			{% for field in form.visible_fields %}
+			{{ field.errors }}
+			{{ field.help_text }}
+			{{ field }}
+			{% endfor %}
+			<button class="button primary" value="submit">Create room</button>
+		</form>
+		{% endif %}
 	</div>
-	<a href="#room" class="goto-next scrolly">Next</a>
 </section>
 
-
-<!--				<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">-->
-<!-- Room -->
 <section class="hero-section" id="room">
 	<div class="card-grid">
+		{% if rooms %}
+		{% for r in rooms %}
 		<a class="card" href="/room/">
 			<div class="card__background"
 				style="background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)">
 			</div>
 			<div class="card__content">
-				<p class="card__category">Room 1</p>
-				<h3 class="card__heading">Pokemon World</h3>
+				<p class="card__category">Room name</p>
+				<h3 class="card__heading">{{ r.name }}</h3>
 			</div>
 		</a>
-		<a class="card" href="#">
-			<div class="card__background"
-				style="background-image: url(https://images.unsplash.com/photo-1557187666-4fd70cf76254?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)">
-			</div>
-			<div class="card__content">
-				<p class="card__category">Room 2</p>
-				<h3 class="card__heading">One Piece World</h3>
-			</div>
-		</a>
-		<a class="card" href="#">
-			<div class="card__background"
-				style="background-image: url(https://images.unsplash.com/photo-1556680262-9990363a3e6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)">
-			</div>
-			<div class="card__content">
-				<p class="card__category">Room 3</p>
-				<h3 class="card__heading">LOL World</h3>
-			</div>
-		</a>
-		<a class="card" href="#">
-			<div class="card__background"
-				style="background-image: url(https://images.unsplash.com/photo-1557004396-66e4174d7bf6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)">
-			</div>
-			<div class="card__content">
-				<p class="card__category">Room 4</p>
-				<h3 class="card__heading">Small Black House</h3>
-			</div>
-		</a>
+		{% endfor %}
+		{% else %}
+		<strong>There are no rooms present.</strong>
+		{% endif %}
 	</div>
+
 </section>
+
 {% endblock %}

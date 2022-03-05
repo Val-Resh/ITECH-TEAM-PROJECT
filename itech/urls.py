@@ -26,4 +26,5 @@ urlpatterns = [
     path('shop/', views.shop, name='shop'),
     path('room/', views.room, name='room'),
     path('userprofile/', views.userprofile, name='user-profile'),
+    path('create_room/', views.index, name='create_room'),
 ]
