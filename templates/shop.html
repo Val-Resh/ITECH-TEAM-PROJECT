@@ -13,126 +13,29 @@ Shop
 <div class="wrapper">
 	<h1>Shop</h1>
 	<div class="cols">
+		{% if items %}
+		{% for i in items %}
 		<div class="col" ontouchstart="this.classList.toggle('hover');">
 			<div class="container">
 				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
 					<div class="inner">
-						<p>Apple</p>
-						<span>Cost: 1</span>
+						<p>{{ i.name }}</p>
+						<span>Cost: {{ i.price }}</span>
+						<div>{{ i.effect_description }} + {{ i.effect }}</div>
 					</div>
 				</div>
 				<div class="back">
 					<div class="inner">
-						<p>Health + 1</p>
+						<p>Click to buy {{ i.name }}</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="url(https://unsplash.it/511/511/)">
-					<div class="inner">
-						<p>Cookies</p>
-						<span>Cost: 2</span>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Health + 2</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/502/502/)">
-					<div class="inner">
-						<p>Energy drink</p>
-						<span>Cost: 5</span>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Attack + 3</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/503/503/)">
-					<div class="inner">
-						<p>Suger</p>
-						<span>Cost: 2</span>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Happy + 10</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/504/504/">
-					<div class="inner">
-						<p>Coffee</p>
-						<span>Cost: 1.5</span>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Energy + 100</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/505/505/)">
-					<div class="inner">
-						<p>Cola</p>
-						<span>Cost: 2</span>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Happy + 250</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/506/506/)">
-					<div class="inner">
-						<p>Diamonds</p>
-						<span>Cost: 100</span>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>It doesn't work. It's just beautiful. I want to buy it because I am rich and willful.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/508/508/)">
-					<div class="inner">
-						<p>Pikachu pillow</p>
-						<span>Cost: 100</span>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Happy + 100</p>
-					</div>
-				</div>
-			</div>
-		</div>
+
+		{% endfor %}
+		{% else %}
+		<strong>There are no items present. Please run populate script first</strong>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}
