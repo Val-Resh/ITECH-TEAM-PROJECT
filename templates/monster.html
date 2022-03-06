@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
+{% endblock %}
+
+{% block title_block %}
+Choose monster
+{% endblock %}
+
+{% block body_block %}
+<div class="wrapper">
+	<h1>Monster</h1>
+	<div class="cols">
+		{% if monsters %}
+		{% for m in monsters %}
+		<div class="col" ontouchstart="this.classList.toggle('hover');">
+			<div class="container">
+				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
+					<div class="inner">
+						<p>{{ m.name }}</p>
+						<span>level: {{ m.level }}</span>
+						<div>HP: {{ m.health }} </div>
+						<div>ATK: {{ m.attack }} </div>
+						<div>EXP: {{ m.exp }} </div>
+					</div>
+				</div>
+				<div class="back">
+					<div class="inner">
+						<p>Click to choose {{ m.name }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% endfor %}
+		{% else %}
+		<strong>There are no monsters present. Please run populate script first</strong>
+		{% endif %}
+	</div>
+	<a href="/userprofile" class="button primary">Back</a>
+</div>
+{% endblock %}
+
+{% block scripts_block %}
+<script src="{% static 'assets/js/room.js' %}"></script>
+{% endblock %}
