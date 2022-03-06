@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from website.forms import UserForm, RoomForm
 from django.http import HttpResponse
 from django.urls import reverse
-from website.models import Room, Item
+from website.models import Room, Item, Monster
 
 
 def index(request):
@@ -84,6 +84,12 @@ def register(request):
 def shop(request):
     item_list = Item.objects.order_by('-name')
     return render(request, 'shop.html', {'items': item_list})
+
+
+@login_required
+def monster(request):
+    monster_list = Monster.objects.order_by('-name')
+    return render(request, 'monster.html', {'monsters': monster_list})
 
 
 @ login_required

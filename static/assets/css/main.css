@@ -1494,9 +1494,10 @@ body.landing #page-wrapper {
 }
 
 body.landing #header {
-  background: transparent;
+  background-color: whitesmoke;
   box-shadow: none;
-  position: absolute;
+  position: fixed;
+  z-index: 99;
 }
 
 /* Banner */
@@ -1836,6 +1837,7 @@ body.is-touch #banner {
 
   #header {
     display: none;
+ 
   }
 
   /* Banner */
