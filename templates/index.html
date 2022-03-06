@@ -14,8 +14,6 @@ Home
 	<div class="content">
 		<h1>Study Room</h1>
 		{% if user.is_authenticated %}
-
-
 		<form id="room_form" method="post" action="{% url 'create_room' %}">
 			{% csrf_token %}
 			{% for field in form.visible_fields %}
@@ -25,6 +23,8 @@ Home
 			{% endfor %}
 			<button class="button primary" value="submit">Create room</button>
 		</form>
+		{% else %}
+		<p>Create an account to enjoy studying!</p>
 		{% endif %}
 	</div>
 </section>
