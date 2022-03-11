@@ -61,3 +61,18 @@ class ItemTest(TestCase):
         item = Item(name="item", price=50, effect_description="something")
         self.assertIsNotNone(item.price)
         self.assertEqual(item.name, "item")
+
+class BattleTest(TestCase):
+
+    def test_battle(self):
+        user = User(username="username1", password="password1")
+        user2 = User(username="username2", password="password")
+        monster = Monster(name="m")
+        monster2 = Monster(name="c")
+        user1coins = user.coins
+        user2coins = user2.coins
+        user.monster = monster
+        user2.monster = monster2
+        user.battle_user(user2)
+        self.assertTrue((user1coins != user.coins) or (user2coins != user2.coins))
+        
