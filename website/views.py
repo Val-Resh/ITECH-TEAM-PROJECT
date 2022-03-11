@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.urls import reverse
 from website.models import Room, Item, Monster, User
 
+from django.views import View
+
 
 def index(request):
     form = RoomForm()
@@ -120,3 +122,44 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homepage.
     return redirect(reverse('index'))
+
+
+#
+class UserJoinRoomView(View):
+    # @method_decorator(login_required)
+    def get(self, request):
+        username = request.GET['username']
+        room_name = request.GET['room_name']
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        try:
+            room = Room.objects.get(name=room_name)
+        except Room.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        user.add_room(room)
+        user.save()
+        return HttpResponse(room)
+
+
+class UserExitRoomView(View):
+    def get(self, request):
+        username = request.GET['username']
+        print('user', username)
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        user.exit_room()
+        user.save()
+        return HttpResponse(user.room)

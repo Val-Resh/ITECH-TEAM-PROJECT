@@ -102,6 +102,15 @@ class User(AbstractUser):
         else:
             return "Full"
 
+    def exit_room(self):
+        if self.room:
+            room = self.room
+            room.USERS_IN_ROOM -= 1
+            self.room = None
+            return "Removed"
+        else:
+            return "Not in room"
+
     # method to add coins to a User.
     def add_coins(self, coin_amount):
         if coin_amount > 0:

@@ -15,9 +15,16 @@ Room
 	<div class="content">
 		<h1>abd</h1>
 		<h2>Time To Study!</h2>
-		<span class="clock"></span>
-		<button class="button primary" id="join_room_btn" room_name="Pokemon" user_name="{{ user.username ">Join this
-			room</button>
+		<span class="clock" id="room_clock"></span>
+		<p id="show_uesr_in_room"></p>
+
+		<p>
+			<button class="button primary" id="join_room_btn" room_name="{{ room.name }}"
+				user_name="{{ user.username }}">Join this
+				room</button>
+			<button class="button primary" id="exit_room_btn" user_name="{{ user.username }}">Exit this
+				room</button>
+		</p>
 	</div>
 	<a href="#room" class="goto-next scrolly">Next</a>
 </section>
