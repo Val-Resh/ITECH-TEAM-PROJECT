@@ -101,6 +101,8 @@ class User(models.Model):
         result = self.monster.battle(opponent.monster)
         if result is True:
             self.add_coins(100)
+            return self
         else: 
             opponent.add_coins(100)
+            return opponent
     
