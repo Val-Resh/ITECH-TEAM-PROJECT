@@ -23,4 +23,13 @@ $(document).ready(function() {
                 $('#body_block_content').html(data);
         })
     });
+
+    $('.buy_item_card').click(function() {
+        const itemIdVar = $(this).attr('item_id');
+        $.get('/buy_item/', {'item_id': itemIdVar}, 
+            function(message){
+                alert(message)
+                // $('#body_block_content').html(data);
+        })
+    });
 });

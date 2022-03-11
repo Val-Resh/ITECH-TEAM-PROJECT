@@ -32,6 +32,7 @@ urlpatterns = [
     # AJAX
     path('join_room/', views.UserJoinRoomView.as_view(), name='join_room'),
     path('exit_room/', views.UserExitRoomView.as_view(), name='exit_room'),
+    path('buy_item/', views.UserBuyItemView.as_view(), name='buy_item'),
     path('choose_monster/', views.UserChooseMonsterView.as_view(),
          name='choose_monster'),
 

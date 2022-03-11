@@ -194,3 +194,30 @@ class UserChooseMonsterView(View):
         user.monster = monster
         user.save()
         return redirect('/userprofile')
+
+
+class UserBuyItemView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        username = request.user.username
+        item_id = request.GET['item_id']
+
+        try:
+            item = Item.objects.get(id=item_id)
+        except User.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        # add coin to test
+        # message = user.add_coins(100)
+        message = user.buy_item(item)
+        user.save()
+        return HttpResponse(message)

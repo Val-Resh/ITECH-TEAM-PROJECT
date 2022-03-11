@@ -21,7 +21,7 @@
     {% endblock %}
 </head>
 
-<body class="is-preload landing">
+<body class="is-preload landing" id="body_block_content">
     <div id="page-wrapper">
 
         <!-- Header -->
@@ -44,7 +44,7 @@
             </nav>
         </header>
 
-        <div id="body_block_content">
+        <div>
             {% block body_block %}
             This is body_block's default content.
             {% endblock %}
