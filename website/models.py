@@ -2,7 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import *
 from django.contrib.auth.models import AbstractUser
+from datetime import datetime, timezone
 import random
+import math
 
 # Create your models here.
 
@@ -89,6 +91,7 @@ class User(AbstractUser):
                                                        MinValueValidator(0)])
     room = models.ForeignKey(
         Room, null=True, on_delete=models.SET_NULL, default=None)
+    last_join_time = models.DateTimeField(null=True)
 
     class Meta:
         app_label = 'website'
@@ -96,7 +99,11 @@ class User(AbstractUser):
     # method to add a room.
     def add_room(self, room: Room):
         if room.USERS_IN_ROOM < room.MAX_USERS:
+            if self.room != None:
+                return "Already in the room."
             self.room = room
+            self.last_join_time = datetime.now(timezone.utc)
+            print("JOIN", self.last_join_time)
             room.USERS_IN_ROOM += 1
             return "Added"
         else:
@@ -108,7 +115,17 @@ class User(AbstractUser):
             room = self.room
             room.USERS_IN_ROOM -= 1
             self.room = None
-            return "Removed"
+            if self.last_join_time:
+                diff_time = datetime.now(timezone.utc) - self.last_join_time
+                self.last_join_time = None
+                minutes = (diff_time.seconds)/60
+                coin = math.floor(minutes)
+
+                # add coin when exit
+                self.add_coins(coin)
+                return "Earned " + str(coin) + " coins."
+            else:
+                "No time record"
         else:
             return "Not in room"
 
