@@ -12,18 +12,21 @@ Choose monster
 {% block body_block %}
 <div class="wrapper">
 	<h1>Monster</h1>
+
+	{% if user.monster %}
+	<h3>You already had monster.</h3>
+	{% else %}
 	<div class="cols">
 		{% if monsters %}
 		{% for m in monsters %}
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
+		<div class="col choose_monster_card" monster_index="{{m.index}}" ontouchstart="this.classList.toggle('hover');">
 			<div class="container">
 				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
 					<div class="inner">
 						<p>{{ m.name }}</p>
-						<span>level: {{ m.level }}</span>
+						<span>level: 1</span>
 						<div>HP: {{ m.health }} </div>
 						<div>ATK: {{ m.attack }} </div>
-						<div>EXP: {{ m.exp }} </div>
 					</div>
 				</div>
 				<div class="back">
@@ -39,6 +42,7 @@ Choose monster
 		<strong>There are no monsters present. Please run populate script first</strong>
 		{% endif %}
 	</div>
+	{% endif %}
 	<a href="/userprofile" class="button primary">Back</a>
 </div>
 {% endblock %}

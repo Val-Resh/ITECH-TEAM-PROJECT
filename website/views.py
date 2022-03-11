@@ -6,7 +6,13 @@ from django.http import HttpResponse
 from django.urls import reverse
 from website.models import Room, Item, Monster, User
 
+from django.utils.decorators import method_decorator
+
 from django.views import View
+
+MONSTER_LISTS = [{"index": 0, "name": "Pika", "health": "100", "attack": "10"},
+                 {"index": 1, "name": "Liza", "health": "120", "attack": "8"},
+                 {"index": 2, "name": "Eevee", "health": "80", "attack": "12"}]
 
 
 def index(request):
@@ -90,8 +96,7 @@ def shop(request):
 
 @login_required
 def monster(request):
-    monster_list = Monster.objects.order_by('-name')
-    return render(request, 'monster.html', {'monsters': monster_list})
+    return render(request, 'monster.html', {'monsters': MONSTER_LISTS})
 
 
 @login_required
@@ -113,7 +118,9 @@ def room(request, room_name):
 
 @login_required
 def userprofile(request):
-    return render(request, 'user-profile.html')
+    username = request.user.username
+    user = User.objects.get(username=username)
+    return render(request, 'user-profile.html', {'monster': user.monster})
 
 
 @login_required
@@ -126,9 +133,9 @@ def user_logout(request):
 
 #
 class UserJoinRoomView(View):
-    # @method_decorator(login_required)
+    @method_decorator(login_required)
     def get(self, request):
-        username = request.GET['username']
+        username = request.user.username
         room_name = request.GET['room_name']
         try:
             user = User.objects.get(username=username)
@@ -150,9 +157,9 @@ class UserJoinRoomView(View):
 
 
 class UserExitRoomView(View):
+    @method_decorator(login_required)
     def get(self, request):
-        username = request.GET['username']
-        print('user', username)
+        username = request.user.username
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
@@ -163,3 +170,27 @@ class UserExitRoomView(View):
         user.exit_room()
         user.save()
         return HttpResponse(user.room)
+
+
+class UserChooseMonsterView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        username = request.user.username
+        monster_id = request.GET['monster_index']
+        print(monster_id)
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        m = MONSTER_LISTS[int(monster_id)]
+        print(m)
+        monster = Monster.objects.create(
+            name=m['name'], level=1, exp=0, attack=m['attack'], health=m['health'])
+
+        user.monster = monster
+        user.save()
+        print('monster', user.monster)
+        return HttpResponse(user)

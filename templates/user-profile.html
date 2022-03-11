@@ -24,17 +24,37 @@ User Profile
 					</div>
 					<div class="card-user">
 						<img src="https://unsplash.it/200/200" alt="User Card by Ashish Mehra" />
-						<span>{{user.username}}<i>@gla.ac.uk</i></span>
+						<span>{{user.username}}</span>
 						<div class="user-info">
-							<span>71<b>Posts</b></span>
-							<span>532<b>Followers</b></span>
-							<span>451<b>Following</b></span>
+							<span>Coin<b>{{user.coins}}</b></span>
+							<span>Wins<b>{{user.wins}}</b></span>
 						</div>
 					</div>
 				</div>
 				<div class="card-back"></div>
 			</div>
+
+			{% if monster %}
+			<div class="card-wrapper">
+				<div class="card-front">
+					<div class="card-links">
+						Your Monster
+					</div>
+					<div class="card-user">
+						<span>{{monster.name}}<p></p></span>
+						<h4>EXP: {{monster.exp}} /1000</h4>
+						<div class="user-info">
+							<span>level<b>{{monster.level}}</b></span>
+							<span>HP<b>{{monster.health}}</b></span>
+							<span>ATK<b>{{monster.attack}}</b></span>
+						</div>
+					</div>
+				</div>
+				<div class="card-back"></div>
+			</div>
+			{% else %}
 			<a href="/monster" class="button primary">Choose your monster</a>
+			{% endif %}
 		</div>
 	</div>
 </section>
