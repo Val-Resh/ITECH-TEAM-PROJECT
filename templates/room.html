@@ -27,20 +27,26 @@ Room
 			{% endif%}
 		</p>
 	</div>
-	<a href="#room" class="goto-next scrolly">Next</a>
+	<a href="#users" class="goto-next scrolly">Next</a>
 </section>
 
-<section class="hero-section" id="room">
+<section class="hero-section" id="users">
 	<h2>Users in room</h2>
 
 	<div class="card-grid">
 		{% if users %}
 		{% for u in users %}
 		<a class="card" href="#">
-			<div class="card__background" style="background-image: url(https://unsplash.it/500/500/)">
+			<div class="card__background" style="background-image: url(https://unsplash.it/200/200/)">
 			</div>
 			<div class="card__content">
 				<h3 class="card__heading">{{ u.username }}</h3>
+
+				<h4>Level: {{ u.monster.level }}</h4>
+				<h4>HP: {{ u.monster.health }}</h4>
+				<h4>ATK :{{ u.monster.attack }}</h4>
+
+				<div class="button primary">Battle</div>
 			</div>
 		</a>
 		{% endfor %}

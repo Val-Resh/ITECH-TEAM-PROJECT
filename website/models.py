@@ -103,6 +103,7 @@ class User(AbstractUser):
             return "Full"
 
     def exit_room(self):
+        # TODO: calculate coin while exit
         if self.room:
             room = self.room
             room.USERS_IN_ROOM -= 1
