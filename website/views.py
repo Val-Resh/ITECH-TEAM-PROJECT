@@ -153,7 +153,10 @@ class UserJoinRoomView(View):
 
         user.add_room(room)
         user.save()
-        return HttpResponse(room)
+        # return HttpResponse(room)
+        # return render(request, 'room.html')
+        return redirect(request.META['HTTP_REFERER'])
+        # return redirect('/room/'+room_name+'/')
 
 
 class UserExitRoomView(View):
@@ -166,10 +169,10 @@ class UserExitRoomView(View):
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
-
+        print(user)
         user.exit_room()
         user.save()
-        return HttpResponse(user.room)
+        return redirect('/')
 
 
 class UserChooseMonsterView(View):
@@ -177,7 +180,6 @@ class UserChooseMonsterView(View):
     def get(self, request):
         username = request.user.username
         monster_id = request.GET['monster_index']
-        print(monster_id)
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
@@ -186,11 +188,9 @@ class UserChooseMonsterView(View):
             return HttpResponse(-1)
 
         m = MONSTER_LISTS[int(monster_id)]
-        print(m)
         monster = Monster.objects.create(
             name=m['name'], level=1, exp=0, attack=m['attack'], health=m['health'])
 
         user.monster = monster
         user.save()
-        print('monster', user.monster)
-        return HttpResponse(user)
+        return redirect('/userprofile')

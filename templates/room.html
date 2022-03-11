@@ -11,33 +11,35 @@ Room
 {% endblock %}
 
 {% block body_block %}
-<section id="banner">
+<section id="banner" id="room_content">
 	<div class="content">
-		<h1>abd</h1>
 		<h2>Time To Study!</h2>
 		<span class="clock" id="room_clock"></span>
 		<p id="show_uesr_in_room"></p>
 
 		<p>
-			<button class="button primary" id="join_room_btn" room_name="{{ room.name }}">Join this
-				room</button>
+			{% if user.room %}
 			<button class="button primary" id="exit_room_btn">Exit this
 				room</button>
+			{% else %}
+			<button class="button primary" id="join_room_btn" room_name="{{ room.name }}">Join this
+				room</button>
+			{% endif%}
 		</p>
 	</div>
 	<a href="#room" class="goto-next scrolly">Next</a>
 </section>
 
 <section class="hero-section" id="room">
+	<h2>Users in room</h2>
+
 	<div class="card-grid">
 		{% if users %}
 		{% for u in users %}
 		<a class="card" href="#">
-			<div class="card__background"
-				style="background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)">
+			<div class="card__background" style="background-image: url(https://unsplash.it/500/500/)">
 			</div>
 			<div class="card__content">
-				<p class="card__category">Users in room</p>
 				<h3 class="card__heading">{{ u.username }}</h3>
 			</div>
 		</a>
