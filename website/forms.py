@@ -6,7 +6,7 @@ from website.models import User
 
 class RoomForm(forms.ModelForm):
     name = forms.CharField(max_length=Room.MAX_NAME_LENGTH,
-                           help_text="Please enter the room name.")
+                           help_text="Room name")
 
     class Meta:
         model = Room

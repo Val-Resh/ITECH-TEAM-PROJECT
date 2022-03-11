@@ -15,16 +15,18 @@ Room
 	<div class="content">
 		<h2>Time To Study!</h2>
 		<span class="clock" id="room_clock"></span>
-		<p id="show_uesr_in_room"></p>
+		<hr />
+
 
 		<p>
 			{% if user.room %}
-			<button class="button primary" id="exit_room_btn">Exit this
-				room</button>
-			{% else %}
-			<button class="button primary" id="join_room_btn" room_name="{{ room.name }}">Join this
-				room</button>
-			{% endif%}
+		<p id="show_uesr_in_room">You're in this room.</p>
+		<button class="button primary" id="exit_room_btn">Exit this
+			room</button>
+		{% else %}
+		<button class="button primary" id="join_room_btn" room_name="{{ room.name }}">Join this
+			room</button>
+		{% endif %}
 		</p>
 	</div>
 	<a href="#users" class="goto-next scrolly">Next</a>
@@ -36,6 +38,7 @@ Room
 	<div class="card-grid">
 		{% if users %}
 		{% for u in users %}
+		{% if u != user %}
 		<a class="card" href="#">
 			<div class="card__background" style="background-image: url(https://unsplash.it/200/200/)">
 			</div>
@@ -49,6 +52,7 @@ Room
 				<div class="button primary">Battle</div>
 			</div>
 		</a>
+		{% endif %}
 		{% endfor %}
 		{% else %}
 		<strong>There are no user in this room.</strong>
