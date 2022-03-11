@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import *
+import random 
 
 # Create your models here.
 
@@ -30,6 +31,22 @@ class Monster(models.Model):
             self.health += 100
             self.attack += 20
             self.exp = 0  
+
+    #battles an opponent monster.
+    #returns true if won, false otherwise.    
+    def battle(self, monster):
+        monster1_health = self.health
+        monster2_health = monster.health
+
+        while(monster1_health > 0 or monster2_health > 0):
+            monster2_health -= random.randrange(round(self.attack/3),self.attack)
+            if(monster2_health <= 0):
+                break
+            monster1_health -= random.randrange(round(monster.attack/3),monster.attack)
+        
+        return True if monster1_health > 0 else False
+
+
 
 class Room(models.Model):
     MAX_USERS = 5
@@ -78,4 +95,12 @@ class User(models.Model):
         if coin_amount > 0:
             self.coins = self.MAX_COINS if coin_amount > self.MAX_COINS \
                             else self.coins + coin_amount
+
+    #battle against another user:
+    def battle_user(self, opponent):
+        result = self.monster.battle(opponent.monster)
+        if result is True:
+            self.add_coins(100)
+        else: 
+            opponent.add_coins(100)
     
