@@ -31,36 +31,20 @@ def index(request):
 
 
 def user_login(request):
-    # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
-        # Gather the username and password provided by the user.
-        # This information is obtained from the login form.
-        # We use request.POST.get('<variable>') as opposed
-        # to request.POST['<variable>'], because the
-        # request.POST.get('<variable>') returns None if the
-        # value does not exist, while request.POST['<variable>'] # will raise a KeyError exception.
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        # Use Django's machinery to attempt to see if the username/password
-        # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
-        print(username, password)
-        # If we have a User object, the details are correct.
-        # If None (Python's way of representing the absence of a value), no user # with matching credentials was found.
+
         if user:
-            # Is the account active? It could have been disabled.
             if user.is_active:
                 print(user)
-                # If the account is valid and active, we can log the user in.
-                # We'll send the user back to the homepage.
                 login(request, user)
                 return redirect('/')
             else:
-                # An inactive account was used - no logging in!
                 return HttpResponse("Your Rango account is disabled.")
         else:
-            # Bad login details were provided. So we can't log the user in.
             print(f"Invalid login details: {username}, {password}")
             return render(request, 'login.html', {
                 'login_message': 'Enter the username and password incorrectly', })
@@ -111,7 +95,6 @@ def room(request, room_name):
         users_in_room = User.objects.filter(room=room)
     except User.DoesNotExist:
         users_in_room = None
-    print(users_in_room)
 
     return render(request, 'room.html', {'room': room, 'users': users_in_room})
 
@@ -125,7 +108,6 @@ def userprofile(request):
 
 @login_required
 def user_logout(request):
-    # Since we know the user is logged in, we can now just log them out.
     logout(request)
     # Take the user back to the homepage.
     return redirect(reverse('index'))
@@ -153,10 +135,8 @@ class UserJoinRoomView(View):
 
         user.add_room(room)
         user.save()
-        # return HttpResponse(room)
-        # return render(request, 'room.html')
+
         return redirect(request.META['HTTP_REFERER'])
-        # return redirect('/room/'+room_name+'/')
 
 
 class UserExitRoomView(View):
@@ -169,7 +149,7 @@ class UserExitRoomView(View):
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
-        print(user)
+
         user.exit_room()
         user.save()
         return redirect('/')

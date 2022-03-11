@@ -129,8 +129,6 @@ class User(AbstractUser):
             return opponent
 
     def buy_item(self, item: Item):
-        print(self.monster)
-        print(item.price)
         if item.price <= self.coins:
             eff = item.effect_description
             amount = item.effect
