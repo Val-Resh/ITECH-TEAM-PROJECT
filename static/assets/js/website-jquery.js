@@ -9,8 +9,9 @@ $(document).ready(function() {
 
     $('#exit_room_btn').click(function() {
         $.get('/exit_room/',{},
-            function(data){
-                $('#body_block_content').html(data)
+            function(message){
+                alert(message)
+                location.href="/";
         })
     });
 
@@ -29,7 +30,6 @@ $(document).ready(function() {
         $.get('/buy_item/', {'item_id': itemIdVar}, 
             function(message){
                 alert(message)
-                // $('#body_block_content').html(data);
         })
     });
 });
