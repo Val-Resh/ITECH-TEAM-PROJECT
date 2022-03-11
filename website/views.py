@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from website.forms import UserForm, RoomForm
 from django.http import HttpResponse
 from django.urls import reverse
-from website.models import Room, Item, Monster
+from website.models import Room, Item, Monster, User
 
 
 def index(request):
@@ -92,17 +92,29 @@ def monster(request):
     return render(request, 'monster.html', {'monsters': monster_list})
 
 
-@ login_required
-def room(request):
-    return render(request, 'room.html')
+@login_required
+def room(request, room_name):
+    try:
+        room = Room.objects.get(name=room_name)
+    except Room.DoesNotExist:
+        room = None
+        # return redirect(reverse('room', kwargs={'room_name_slug': room_name_slug}))
+
+    try:
+        users_in_room = User.objects.filter(room=room)
+    except User.DoesNotExist:
+        users_in_room = None
+    print(users_in_room)
+
+    return render(request, 'room.html', {'room': room, 'users': users_in_room})
 
 
-@ login_required
+@login_required
 def userprofile(request):
     return render(request, 'user-profile.html')
 
 
-@ login_required
+@login_required
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
