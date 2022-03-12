@@ -51,7 +51,9 @@ Room
 				<h4>HP: {{ u.monster.health }}</h4>
 				<h4>ATK :{{ u.monster.attack }}</h4>
 
-				<div class="button primary">Battle</div>
+				{% csrf_token %}
+
+				<button class="button primary" id="{{ u.id }}" onClick="battle(this.id)">Battle</button>
 			</div>
 		</a>
 		{% endif %}
@@ -66,4 +68,19 @@ Room
 
 {% block scripts_block %}
 <script src="{% static 'assets/js/room.js' %}"></script>
+<script>
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+	 function battle(button_id) {
+        url = "/battle-user/";
+        fetch(url, {
+			headers: {
+				"X-CSRFToken": csrftoken
+			},
+			mode: "same-origin",
+			method: "POST",
+			body: button_id,
+        }).then(response => response.text())
+        .then(body => alert("The winner is: " + body))
+    }
+</script>
 {% endblock %}
