@@ -25,7 +25,14 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('shop/', views.shop, name='shop'),
     path('monster/', views.monster, name='monster'),
-    path('room/', views.room, name='room'),
+    path('room/<room_name>/', views.room, name='room'),
     path('userprofile/', views.userprofile, name='user-profile'),
     path('create_room/', views.index, name='create_room'),
+
+    # AJAX
+    path('join_room/', views.UserJoinRoomView.as_view(), name='join_room'),
+    path('exit_room/', views.UserExitRoomView.as_view(), name='exit_room'),
+    path('choose_monster/', views.UserChooseMonsterView.as_view(),
+         name='choose_monster'),
+
 ]
