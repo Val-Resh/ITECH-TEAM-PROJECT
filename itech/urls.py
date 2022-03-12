@@ -35,5 +35,6 @@ urlpatterns = [
     path('buy_item/', views.UserBuyItemView.as_view(), name='buy_item'),
     path('choose_monster/', views.UserChooseMonsterView.as_view(),
          name='choose_monster'),
+    path("battle-user/", views.battle_user, name="battle-user"),
 
 ]

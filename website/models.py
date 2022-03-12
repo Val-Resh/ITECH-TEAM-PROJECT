@@ -141,9 +141,11 @@ class User(AbstractUser):
         result = self.monster.battle(opponent.monster)
         if result is True:
             self.add_coins(100)
+            self.wins += 1
             return self
         else:
             opponent.add_coins(100)
+            opponent.wins += 1
             return opponent
 
     def buy_item(self, item: Item):

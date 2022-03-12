@@ -5,10 +5,13 @@ from website.forms import UserForm, RoomForm
 from django.http import HttpResponse
 from django.urls import reverse
 from website.models import Room, Item, Monster, User
+from django.views.decorators.http import *
 
 from django.utils.decorators import method_decorator
 
 from django.views import View
+
+import re
 
 MONSTER_LISTS = [{"index": 0, "name": "Pika", "health": "100", "attack": "10"},
                  {"index": 1, "name": "Liza", "health": "120", "attack": "8"},
@@ -201,3 +204,15 @@ class UserBuyItemView(View):
         message = user.buy_item(item)
         user.save()
         return HttpResponse(message)
+
+
+def battle_user(request):
+    opponent_id = request.body.decode('UTF-8').strip(" ")
+    this_id = request.user.id
+
+    this_user = User.objects.get(id=this_id)
+    opponent_user = User.objects.get(id=opponent_id)
+    
+    winner = this_user.battle_user(opponent_user)
+    winner.save()
+    return HttpResponse(winner.username)
