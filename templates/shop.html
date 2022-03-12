@@ -13,6 +13,7 @@ Shop
 <div class="wrapper">
 	<h1>Shop</h1>
 	{% if user.monster %}
+	<h3>Remaining coins: {{user.coins}}</h3>
 	<div class="cols">
 		{% if items %}
 		{% for i in items %}
