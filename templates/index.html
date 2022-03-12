@@ -12,8 +12,9 @@ Home
 
 <section id="banner">
 	<div class="content">
-		<h1>Study Room</h1>
+		<h2>Study Room</h2>
 		{% if user.is_authenticated %}
+		<h3>Create a room</h3>
 		<form id="room_form" method="post" action="{% url 'create_room' %}">
 			{% csrf_token %}
 			{% for field in form.visible_fields %}
@@ -21,8 +22,11 @@ Home
 			{{ field.help_text }}
 			{{ field }}
 			{% endfor %}
-			<button class="button primary" value="submit">Create room</button>
+			<p><button class="button primary" value="submit">Create room</button></p>
 		</form>
+		<hr />
+		<p>or</p>
+		<a href="#room" class="scrolly"> <span><u> Join room in section below</u></span> </a>
 		{% else %}
 		<p>Create an account to enjoy studying!</p>
 		{% endif %}

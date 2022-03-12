@@ -15,34 +15,46 @@ Room
 	<div class="content">
 		<h2>Time To Study!</h2>
 		<span class="clock" id="room_clock"></span>
-		<p id="show_uesr_in_room"></p>
+		<p>* Every a minute = 1 coin !</p>
+		<hr />
+
 
 		<p>
 			{% if user.room %}
-			<button class="button primary" id="exit_room_btn">Exit this
-				room</button>
-			{% else %}
-			<button class="button primary" id="join_room_btn" room_name="{{ room.name }}">Join this
-				room</button>
-			{% endif%}
+		<h3 id="show_uesr_in_room">You're in this room.</h3>
+		<button class="button primary" id="exit_room_btn">Exit this
+			room</button>
+		{% else %}
+		<button class="button primary" id="join_room_btn" room_name="{{ room.name }}">Join this
+			room</button>
+		{% endif %}
 		</p>
+		<a href="/">Back</a>
 	</div>
-	<a href="#room" class="goto-next scrolly">Next</a>
+	<a href="#users" class="goto-next scrolly">Next</a>
 </section>
 
-<section class="hero-section" id="room">
+<section class="hero-section" id="users">
 	<h2>Users in room</h2>
 
 	<div class="card-grid">
 		{% if users %}
 		{% for u in users %}
+		{% if u != user %}
 		<a class="card" href="#">
-			<div class="card__background" style="background-image: url(https://unsplash.it/500/500/)">
+			<div class="card__background" style="background-image: url(https://unsplash.it/200/200/)">
 			</div>
 			<div class="card__content">
 				<h3 class="card__heading">{{ u.username }}</h3>
+
+				<h4>Level: {{ u.monster.level }}</h4>
+				<h4>HP: {{ u.monster.health }}</h4>
+				<h4>ATK :{{ u.monster.attack }}</h4>
+
+				<div class="button primary">Battle</div>
 			</div>
 		</a>
+		{% endif %}
 		{% endfor %}
 		{% else %}
 		<strong>There are no user in this room.</strong>

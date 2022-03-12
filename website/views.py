@@ -150,9 +150,9 @@ class UserExitRoomView(View):
         except ValueError:
             return HttpResponse(-1)
 
-        user.exit_room()
+        message = user.exit_room()
         user.save()
-        return redirect('/')
+        return HttpResponse(message)
 
 
 class UserChooseMonsterView(View):
