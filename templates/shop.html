@@ -12,10 +12,11 @@ Shop
 {% block body_block %}
 <div class="wrapper">
 	<h1>Shop</h1>
+	{% if user.monster %}
 	<div class="cols">
 		{% if items %}
 		{% for i in items %}
-		<div class="col" ontouchstart="this.classList.toggle('hover');">
+		<div class="col buy_item_card" item_id="{{i.id}}" ontouchstart="this.classList.toggle('hover');">
 			<div class="container">
 				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
 					<div class="inner">
@@ -31,12 +32,20 @@ Shop
 				</div>
 			</div>
 		</div>
-
 		{% endfor %}
 		{% else %}
 		<strong>There are no items present. Please run populate script first</strong>
 		{% endif %}
 	</div>
+	{% else %}
+	<div class="cols">
+		<div class="flex-center">
+			<h3>You have no monsters. Please choose monster first</h3>
+			<a href="/monster" class="button primary">Choose monster</a>
+		</div>
+	</div>
+	{% endif %}
+
 </div>
 {% endblock %}
 

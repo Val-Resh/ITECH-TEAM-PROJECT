@@ -29,7 +29,7 @@ class Monster(models.Model):
 
     # method to level up a monster.
     def level_up(self):
-        if self.level < self.MAX_LEVEL and self.exp == self.MAX_EXP:
+        if self.level < self.MAX_LEVEL and self.exp >= self.MAX_EXP:
             self.level += 1
             self.health += 100
             self.attack += 20
@@ -116,6 +116,7 @@ class User(AbstractUser):
         if coin_amount > 0:
             self.coins = self.MAX_COINS if coin_amount > self.MAX_COINS \
                 else self.coins + coin_amount
+        return "Added"
 
     # battle against another user:
     def battle_user(self, opponent):
@@ -126,3 +127,22 @@ class User(AbstractUser):
         else:
             opponent.add_coins(100)
             return opponent
+
+    def buy_item(self, item: Item):
+        if item.price <= self.coins:
+            eff = item.effect_description
+            amount = item.effect
+            if eff == 'ATK':
+                self.monster.attack += amount
+            elif eff == 'HP':
+                self.monster.health += amount
+            elif eff == 'EXP':
+                self.monster.exp += amount
+                self.monster.level_up()
+
+            self.coins -= item.price
+            self.monster.save()
+
+            return "Buy an item successfully. Your monster stats were upgraded."
+        else:
+            return "Insufficient coins."
