@@ -28,6 +28,7 @@ urlpatterns = [
     path('room/<room_name>/', views.room, name='room'),
     path('userprofile/', views.userprofile, name='user-profile'),
     path('create_room/', views.index, name='create_room'),
+    path('battle/', views.battle, name='battle'),
 
     # AJAX
     path('join_room/', views.UserJoinRoomView.as_view(), name='join_room'),

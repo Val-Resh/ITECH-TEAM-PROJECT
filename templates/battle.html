@@ -2,7 +2,8 @@
 {% load staticfiles %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/usercard.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/battle.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -10,7 +11,10 @@ User Profile
 {% endblock %}
 
 {% block body_block %}
-    <section class="userprofile">
+    <section class="battle">
+        <div class="win-display">
+            <div class="btn-info btn-1">Combat Result: Use 1 win!!</div>
+        </div>
         <div id="left">
             <div class="card">
                 <div class="avatar"></div>
@@ -18,33 +22,28 @@ User Profile
                     <div class="info">Neil Zhong</div>
                     <div class="info2">Male</div>
                 </div>
-                <div class="divider"></div>
+                <div class="divider2"></div>
                 <div class="socialinfo">
                     <div class="socialone">
-                        <span class="socialtext">1000</span><br />
-                        <span class="socialheading">Coins</span>
+                        <span class="socialtext">1</span><br />
+                        <span class="socialheading">Lv</span>
                     </div>
                     <div class="socialtwo">
                         <span class="socialtext">20</span><br />
-                        <span class="socialheading">Wins</span>
+                        <span class="socialheading">HP</span>
                     </div>
                     <div class="socialthree">
-                        <span class="socialtext">100</span><br />
-                        <span class="socialheading">LearningTimes</span>
+                        <span class="socialtext">2</span><br />
+                        <span class="socialheading">Attack</span>
                     </div>
                 </div>
             </div><!-- card -->
         </div><!-- left -->
         <div id="right">
-            <a href="/monster" alt="" >
-                <div class="add-monster">
-                    <img src="{% static 'images/add.png' %}" alt="" height="50" />
-                </div>
-            </a>
             <div class="card2">
                 <div class="avatar2"></div>
                 <div class="userinfomain">
-                    <div class="info">Monster</div>
+                    <div class="info">Marry</div>
                     <div class="info2">Female</div>
                 </div>
                 <div class="divider2"></div>
@@ -64,12 +63,18 @@ User Profile
                 </div>
             </div><!-- card -->
         </div>
+
     </section>
+
     <!--
-<div class="card-MonsterBG" >
-        <section class="cards-wrapper">
+    <section class="cards-wrapper-title">
+        <div class="card-grid-space">
+            <div class="num">Combat Result</div>
+        </div>
+    </section>
+        <section class="cards-wrapper-battle">
             <div class="card-grid-space">
-                <div class="num">User</div>
+                <div class="num">User 1: Neil Zhong</div>
                 <a class="card" href="https://codetheweb.blog/2017/10/06/html-syntax/" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
                     <div>
                         <h1>Neil Zhong</h1>
@@ -85,8 +90,11 @@ User Profile
                 </a>
             </div>
 
+        <div class="vs">V.S.</div>
+
+
             <div class="card-grid-space">
-                <div class="num">Monster</div>
+                <div class="num">User 2: Tom</div>
                 <a class="card" href="https://codetheweb.blog/2017/10/09/basic-types-of-html-tags/" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/basic-types-of-html-tags/cover.jpg')">
                     <div>
                         <h1>Basic types of HTML tags</h1>
@@ -99,10 +107,9 @@ User Profile
                 </a>
             </div>
         </section>
-        <div class="choose-monster">
-            <a href="/monster" class="button primary">Choose your monster</a>
+        <div class="win-display">
+            <p class="button primary">User 1: win!!</p>
         </div>
-</div>
 -->
 {% endblock %}
 

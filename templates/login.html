@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load staticfiles %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
-<link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -12,7 +13,7 @@ Login
 
 {% block body_block %}
 <section id="banner">
-	<div class="content">
+	<div>
 		<form id="login_form" method="post" action="{%url 'login' %}">
 			<h3>Login</h3>
 			{% csrf_token %}
@@ -22,8 +23,8 @@ Login
 			<label for="password">Password</label>
 			<input name="password" type="password" placeholder="Password" id="password">
 			{{login_message}}
-			<button class="button primary" value="submit">Log in</button>
-			<p>Didn’t have an account? Go to <a href="/register">Register</a></p>
+			<button class="btn-info btn-1" value="submit">Log in</button>
+			<p>Didn’t have an account? Go to <a href="/register" >Register</a></p>
 		</form>
 	</div>
 </section>

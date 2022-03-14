@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load staticfiles %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -10,48 +11,44 @@ Home
 {% endblock %}
 {% block body_block %}
 
-<section id="banner">
-	<div class="content">
-		<h2>Study Room</h2>
-		{% if user.is_authenticated %}
-		<h3>Create a room</h3>
-		<form id="room_form" method="post" action="{% url 'create_room' %}">
-			{% csrf_token %}
-			{% for field in form.visible_fields %}
-			{{ field.errors }}
-			{{ field.help_text }}
-			{{ field }}
-			{% endfor %}
-			<p><button class="button primary" value="submit">Create room</button></p>
-		</form>
-		<hr />
-		<p>or</p>
-		<a href="#room" class="scrolly"> <span><u> Join room in section below</u></span> </a>
-		{% else %}
-		<p>Create an account to enjoy studying!</p>
-		{% endif %}
-	</div>
-</section>
+    <section id="home">
+        <div class="content">
+            <h2>Start to Study</h2>
+            <p class="intro">Welcome to studymonster, an online self-study website. After you sign up,
+                you can create a new online self-study room, or you can choose to join the
+                room created by others according to your own preferences. After you register,
+                you can choose a monster you like to cultivate. Learning is the most important
+                way to make your monster stronger. If you find learning boring, you can also
+                make your monster fight other people's monsters. I hope you can have a good time here.</p>
+            <a class="btn-info btn-1">Create a room</a>
+            <a class="btn-info btn-2" >Join a room</a>
+        </div>
+        <a href="#room" class="goto-next scrolly">Next</a>
+    </section>
 
-<section class="hero-section" id="room">
-	<div class="card-grid">
-		{% if rooms %}
-		{% for r in rooms %}
-		<a class="card" href="{% url 'room' r.name %}">
-			<div class="card__background"
-				style="background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)">
-			</div>
-			<div class="card__content">
-				<p class="card__category">Room name</p>
-				<h3 class="card__heading">{{ r.name }}</h3>
-			</div>
-		</a>
-		{% endfor %}
-		{% else %}
-		<strong>There are no rooms present.</strong>
-		{% endif %}
-	</div>
+<!-- Room -->
 
-</section>
+    <section class="hero-section" id="room">
+        <h2>Study Room</h2>
+        <div class="card-grid">
+
+            {% if rooms %}
+            {% for r in rooms %}
+            <a class="card" href="/room/">
+                <div class="card__background"
+                    style="background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)">
+                </div>
+                <div class="card__content">
+                    <p class="card__category">Room name</p>
+                    <h3 class="card__heading">{{ r.name }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+            {% else %}
+            <strong>There are no rooms present.</strong>
+            {% endif %}
+        </div>
+
+    </section>
 
 {% endblock %}

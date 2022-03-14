@@ -216,3 +216,7 @@ def battle_user(request):
     winner = this_user.battle_user(opponent_user)
     winner.save()
     return HttpResponse(winner.username)
+
+@login_required
+def battle(request):
+    return render(request, 'battle.html')

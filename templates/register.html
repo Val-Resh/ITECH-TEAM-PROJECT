@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
-<link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -12,8 +13,8 @@ Register
 
 {% block body_block %}
 <section id="banner">
-	<div class="content">
-		<form id="user_form" method="post" action="{%url 'register' %}" enctype="multipart/form-data">
+	<div>
+		<form id="register_form" method="post" action="{%url 'register' %}" enctype="multipart/form-data">
 			{% csrf_token %}
 			<h3>Register</h3>
 			{{user_form.as_p}}
@@ -26,7 +27,7 @@ Register
 					<label for="passwordconfirmation">Confirm Password</label>
 					<input type="password" placeholder="Confirm Password" id="passwordconfirmation"> -->
 
-			<button class="button primary">Register</button>
+			<button class="btn-info btn-3">Register</button>
 			<span>Already had an account? Go to <a href="/login">Log In</a></span>
 		</form>
 	</div>

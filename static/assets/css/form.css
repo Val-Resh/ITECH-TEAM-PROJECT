@@ -6,9 +6,9 @@
   box-sizing: border-box;
 }
 form {
-  height: 520px;
-  width: 400px;
-  background-color: rgba(255, 255, 255, 0.13);
+  height: 530px;
+  width: 410px;
+  background-color: rgba(255, 255, 255, 0.80);
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -19,6 +19,7 @@ form {
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
+  z-index:50;
 }
 form * {
   font-family: 'Poppins', sans-serif;
@@ -26,6 +27,11 @@ form * {
   letter-spacing: 0.5px;
   outline: none;
   border: none;
+}
+
+form a {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/room.css' %}" />
-<link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/room.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -11,76 +12,81 @@ Room
 {% endblock %}
 
 {% block body_block %}
-<section id="banner" id="room_content">
-	<div class="content">
-		<h2>Time To Study!</h2>
-		<span class="clock" id="room_clock"></span>
-		<p>* Every a minute = 1 coin !</p>
-		<hr />
+    <!-- Title -->
+    <div class="user-room">
+        <section class="room-name">
+            <div class="space">
+                <div>Room name</div>
+            </div>
+        </section>
 
+        <section class="room-myuser">
+            <!-- Time -->
+            <div class="room-myuser-time">
+                <div class="strong">Your study time:</div>
+                <div class="ymd">
+                    <span class="clock" id="room_clock"></span>
+                    <div class="strong">day : hour : minute</div>
+                    <div class="strong">(Every 1 minute = 1 coin)</div>
+                    <div class="join">
+                        {% if user.room %}
+                            <p class="show_uesr_in_room">You're in this room.</p>
+                            <button class="btn-info btn-2" id="exit_room_btn">Exit this room</button>
+                        {% else %}
+                            <button class="btn-info btn-1" id="join_room_btn" room_name="{{ room.name }}">Join this room</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
 
-		<p>
-			{% if user.room %}
-		<h3 id="show_uesr_in_room">You're in this room.</h3>
-		<button class="button primary" id="exit_room_btn">Exit this
-			room</button>
-		{% else %}
-		<button class="button primary" id="join_room_btn" room_name="{{ room.name }}">Join this
-			room</button>
-		{% endif %}
-		</p>
-		<a href="/">Back</a>
-	</div>
-	<a href="#users" class="goto-next scrolly">Next</a>
-</section>
+            <!-- Monster Pic -->
+            <div class="room-myuser-monster">
+                <img src="{% static 'images/hero.png' %}" alt="" height="200" />
+            </div>
 
-<section class="hero-section" id="users">
-	<h2>Users in room</h2>
+            <!-- Monster Attribute -->
+            <div class="room-myuser-monster-attribute">
+                <strong>Monster Name :</strong> Eve Love<br>
+                <strong>level :</strong> 1<br>
+                <strong>ATK point :</strong> 2<br>
+                <strong>HP :</strong> 100/100<br>
+                <strong>Exp :</strong> 1/1000<br>
+                (Need more 999 exp to level up)<br>
+            </div>
+        </section>
+        <a href="#users" class="goto-next scrolly">Next</a>
+    </div>
 
-	<div class="card-grid">
-		{% if users %}
-		{% for u in users %}
-		{% if u != user %}
-		<a class="card" href="#">
-			<div class="card__background" style="background-image: url(https://unsplash.it/200/200/)">
-			</div>
-			<div class="card__content">
-				<h3 class="card__heading">{{ u.username }}</h3>
+    <!-- Room Users -->
+    <section class="hero-section" id="users">
+        <h2>Users in room</h2>
 
-				<h4>Level: {{ u.monster.level }}</h4>
-				<h4>HP: {{ u.monster.health }}</h4>
-				<h4>ATK :{{ u.monster.attack }}</h4>
+        <div class="card-grid">
+            {% if users %}
+            {% for u in users %}
+            {% if u != user %}
+            <a class="card" href="#">
+                <div class="card__background" style="background-image: url(https://unsplash.it/200/200/)">
+                </div>
+                <div class="card__content">
+                    <h3 class="card__heading">{{ u.username }}</h3>
 
-				{% csrf_token %}
+                    <h4>Level: {{ u.monster.level }}</h4>
+                    <h4>HP: {{ u.monster.health }}</h4>
+                    <h4>ATK :{{ u.monster.attack }}</h4>
 
-				<button class="button primary" id="{{ u.id }}" onClick="battle(this.id)">Battle</button>
-			</div>
-		</a>
-		{% endif %}
-		{% endfor %}
-		{% else %}
-		<strong>There are no user in this room.</strong>
-		{% endif %}
-	</div>
-
-</section>
+                    <div class="button primary" href="/battle">Battle</div>
+                </div>
+            </a>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <strong>There are no user in this room.</strong>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}
 
 {% block scripts_block %}
 <script src="{% static 'assets/js/room.js' %}"></script>
-<script>
-	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-	 function battle(button_id) {
-        url = "/battle-user/";
-        fetch(url, {
-			headers: {
-				"X-CSRFToken": csrftoken
-			},
-			mode: "same-origin",
-			method: "POST",
-			body: button_id,
-        }).then(response => response.text())
-        .then(body => alert("The winner is: " + body))
-    }
-</script>
 {% endblock %}
