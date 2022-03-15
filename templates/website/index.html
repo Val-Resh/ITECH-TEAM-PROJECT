@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <title>Study Monster</title>
+    </head>
+
+    <body>
+        <centre>
+            <h1>Study Rooms</h1>
+        </centre>
+        <div>
+            <a href="/website/add_room/">Add a New Room</a>
+            {% if rooms %}
+                <ul>
+                    {% for room in rooms %}
+                    <li>
+                        <a href="/website/room/{{room.slug}}/">{{ room.name}}  {{ room.USER_IN_ROOM}}/{{room.MAX_USERS}}</a>
+                    </li>    
+                </ul>
+                {% else %}
+                    There are no rooms present.
+        </div>
+    </body>
+    <div>
+        <a href=" urls website:login">Log In</a>
+    </div>
+
+</html>

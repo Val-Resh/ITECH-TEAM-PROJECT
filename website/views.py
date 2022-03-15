@@ -13,9 +13,11 @@ from django.views import View
 
 import re
 
-MONSTER_LISTS = [{"index": 0, "name": "Pika", "health": "100", "attack": "10"},
-                 {"index": 1, "name": "Liza", "health": "120", "attack": "8"},
-                 {"index": 2, "name": "Eevee", "health": "80", "attack": "12"}]
+MONSTER_LISTS = [{"index":0,"name": "Pikachu", "health": "100", "attack": "10","image":"Pikachu.png"},
+                 {"index":1,"name": "Squirtle", "health": "110", "attack": "8","image":"Squirtle.png"},
+                 {"index":2,"name": "Eevee", "health": "80", "attack": "12","image":"eevee.png"},
+                 {"index":3,"name": "Charmander", "health": "90", "attack": "9","image":"Charmander.png"},
+                 {"index":4,"name": "Bulbasaur", "health": "110", "attack": "10","image":"Bulbasaur.png"}]
 
 
 def index(request):
@@ -172,8 +174,7 @@ class UserChooseMonsterView(View):
 
         m = MONSTER_LISTS[int(monster_id)]
         monster = Monster.objects.create(
-            name=m['name'], level=1, exp=0, attack=m['attack'], health=m['health'])
-
+            name=m['name'], level=1, exp=0, attack=m['attack'], health=m['health'],image=m['image'])
         user.monster = monster
         user.save()
         return redirect('/userprofile')

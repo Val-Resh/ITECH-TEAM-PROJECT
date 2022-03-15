@@ -1,3 +1,4 @@
+from operator import index
 from django.db import models
 from django.conf import settings
 from django.core.validators import *
@@ -18,6 +19,7 @@ class Monster(models.Model):
     STARTING_HEALTH = MAX_HP / MAX_LEVEL
     STARTING_LEVEL = MAX_LEVEL / MAX_LEVEL
     STARTING_ATTACK = MAX_AP / MAX_LEVEL
+    MAX_URL_LENGTH = 200
 
     name = models.CharField(max_length=MAX_NAME_LENGTH)
     level = models.IntegerField(default=STARTING_LEVEL, validators=[MaxValueValidator(MAX_LEVEL),
@@ -28,6 +30,8 @@ class Monster(models.Model):
                                                                       MinValueValidator(STARTING_ATTACK)])
     exp = models.IntegerField(default=0, validators=[MaxValueValidator(MAX_EXP),
                                                      MinValueValidator(0)])
+
+    image = models.CharField(max_length=MAX_URL_LENGTH,blank=True)
 
     # method to level up a monster.
     def level_up(self):
@@ -58,14 +62,18 @@ class Room(models.Model):
     MAX_USERS = 5
     MAX_NAME_LENGTH = 30
     USERS_IN_ROOM = 0
+    MAX_URL_LENGTH = 200
 
     name = models.CharField(unique=True, max_length=MAX_NAME_LENGTH)
+    
+    image = models.CharField(max_length=MAX_URL_LENGTH,blank=True)
 
 
 class Item(models.Model):
     MAX_NAME_LENGTH = 30
     MAX_PRICE = 500
     MAX_EFFECT_DESCRIPTION = 30
+    MAX_URL_LENGTH = 200
 
     name = models.CharField(unique=True, max_length=MAX_NAME_LENGTH)
     price = models.IntegerField(validators=[MaxValueValidator(MAX_PRICE,
@@ -73,6 +81,8 @@ class Item(models.Model):
     effect_description = models.CharField(
         null=False, max_length=MAX_EFFECT_DESCRIPTION)
     effect = models.IntegerField(null=False)
+
+    image = models.CharField(max_length=MAX_URL_LENGTH,blank=True)
 
 
 class User(AbstractUser):
