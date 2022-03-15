@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+        <div>
+        {% if room %}
+            <h1>{{ room.name }}</h1>
+            <a href="/rango/room/{{ room.slug }}/add_uer/">Start studying</a> <br />
+            {% if users %}
+                <ul>
+                    {% for user in users %}
+                    <li><a href="/website/room/{{room.slug}}/{{user.slug}}/ ">{{ user.name }} {{user.studytime}}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No other users currently in this room.
+        {% else %}
+            The specified room does not exist.
+        {% endif %}
+        </div>
+
+        <a href="/website/">Homepage</a>
+    </body>
+
+</html>

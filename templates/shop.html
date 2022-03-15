@@ -19,7 +19,7 @@ Shop
 		{% for i in items %}
 		<div class="col buy_item_card" item_id="{{i.id}}" ontouchstart="this.classList.toggle('hover');">
 			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
+				<div class="front" style="background-image: url(/static/images/items/{{i.image}})">
 					<div class="inner">
 						<p>{{ i.name }}</p>
 						<span>Cost: {{ i.price }}</span>

@@ -1,5 +1,6 @@
 from django.test import TestCase
 from website.models import *
+import time
 
 class UserTest(TestCase):
 
@@ -18,6 +19,8 @@ class UserTest(TestCase):
         user.coins = 0
         user.add_coins(-1000)
         self.assertEqual(user.coins, 0)
+
+
 
 class MonsterTest(TestCase):
     
@@ -45,6 +48,33 @@ class GiveUserMonsterTest(TestCase):
         monsterTwo = Monster(name="monsterTwo")
         user.monster = monster
         self.assertTrue(user.monster == monster)
+    
+class UserBuyItemView(TestCase):
+    def test_buy_item(self):
+        user=User(username="username",password="password")
+        monster = Monster(name="monster")
+        user.monster = monster
+        user.add_coins(1000)
+        eff_des_list=['ATK','HP','EXP']
+        for eff_des in range(len(eff_des_list)):
+            item = Item(name="item", price=50, effect_description=eff_des,effect=10)
+            coins = user.coins
+            user.buy_item(item)
+            self.assertEqual(user.coins, coins-item.price)
+            if eff_des == 'ATK':
+                self.asserfEqual(user.monster.attack,Monster.STARTING_ATTACK+10) 
+            elif eff_des == 'HP':
+                self.asserfEqual(user.monster.health,Monster.STARTING_HEALTH+10) 
+            elif eff_des == 'EXP':
+                self.asserfEqual(user.monster.exp,10)
+        
+        item = Item(name="item", price=50, effect_description=eff_des,effect=10)
+        user.coins=60
+        self.assertEqual(user.buy_item(item),"Buy an item successfully. Your monster stats were upgraded.")
+        user.coins=50
+        self.assertEqual(user.buy_item(item),"Buy an item successfully. Your monster stats were upgraded.")
+        user.coins=20
+        self.assertEqual(user.buy_item(item),"Insufficient coins.")
 
 class AddUserToRoomTest(TestCase):
     
@@ -54,6 +84,21 @@ class AddUserToRoomTest(TestCase):
         self.assertEqual(user.add_room(room), "Added")
         room.USERS_IN_ROOM = 5
         self.assertEqual(user.add_room(room), "Full")
+
+class UserExitRoomVie(TestCase):
+
+    def test_exit_room(self):
+        user = User(username="username", password="password")
+        room = Room(name="room")
+        self.assertEqual(user.exit_room(),"Not in room")
+        user.add_room(room)
+        print("calculate coins ...")
+        time.sleep(60)
+        user.exit_room()
+        self.assertEqual(user.coins,1)
+        self.assertEqual(user.room,None)
+        self.assertEqual(room.USERS_IN_ROOM,0)
+
 
 class ItemTest(TestCase):
 

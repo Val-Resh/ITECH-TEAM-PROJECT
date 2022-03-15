@@ -18,17 +18,19 @@ def populate():
     monsters = [{"name": "monster1"},
                 {"name": "monster2"},
                 {"name": "monster3"}]
-    rooms = [{"name": "room"}]
+    rooms = [{"name": "Natsukan Gym","image":"Natsukan_Gym.png"},
+             {"name":"Navel Gym","image":"Navel_Gym.png"},
+             {"name":"Trovita Gym","image":"Trovita_Gym.png"}]
     items = [
-        {"name": "Apple", "price": 2, "effect_description": "HP", "effect": 10},
-        {"name": "Cookies", "price": 5, "effect_description": "HP", "effect": 30},
-        {"name": "Chips", "price": 10, "effect_description": "HP", "effect": 100},
-        {"name": "ATK potion", "price": 7, "effect_description": "ATK", "effect": 5},
-        {"name": "Protein bars", "price": 5,
-            "effect_description": "ATK", "effect": 2},
-        {"name": "Ball", "price": 1, "effect_description": "EXP", "effect": 10},
-        {"name": "Book", "price": 4, "effect_description": "EXP", "effect": 50},
-        {"name": "EXP potion", "price": 10, "effect_description": "EXP", "effect": 150},
+        {"name": "Grape", "price": 2, "effect_description": "HP", "effect": 10,"image":"Grape.png"},
+        {"name": "Wepear Berry", "price": 5, "effect_description": "HP", "effect": 30,"image":"Wepear_Berry.png"},
+        {"name": "Revive", "price": 10, "effect_description": "HP", "effect": 100,"image":"Revive.png"},
+        {"name": "Potion", "price": 7, "effect_description": "ATK", "effect": 5,"image":"Potion.png"},
+        {"name": "Hyper Potion", "price": 5,
+            "effect_description": "ATK", "effect": 2,"image":"Hyper_Potion.png"},
+        {"name": "Lucky Egg", "price": 1, "effect_description": "EXP", "effect": 10,"image":"Lucky_Egg.png"},
+        {"name": "Icense", "price": 4, "effect_description": "EXP", "effect": 50,"image":"Icense.png"},
+        {"name": "EXP Potion", "price": 10, "effect_description": "EXP", "effect": 150,"image":"EXP_Potion.png"},
     ]
 
     initialised_monsters = []
@@ -40,7 +42,7 @@ def populate():
         print("monster {name} created".format(name=m.name))
 
     for room in rooms:
-        r = add_room(room["name"])
+        r = add_room(room["name"],room["image"])
         initialised_rooms.append(r)
         print("room {name} created".format(name=r.name))
 
@@ -53,7 +55,7 @@ def populate():
 
     for item in items:
         print(item)
-        add_item(item["name"], item["price"],
+        add_item(item["name"], item["image"],item["price"],
                  item["effect_description"], item["effect"])
 
 
@@ -72,15 +74,15 @@ def add_monster(name):
     return monster
 
 
-def add_room(name):
-    room = Room.objects.get_or_create(name=name)[0]
+def add_room(name,image):
+    room = Room.objects.get_or_create(name=name,image=image)[0]
     room.save()
     return room
 
 
-def add_item(name, p=0, eff_des="", eff=0):
+def add_item(name, image,p=0, eff_des="", eff=0):
     item = Item.objects.get_or_create(
-        name=name, price=p, effect_description=eff_des, effect=eff)[0]
+        name=name, image=image,price=p, effect_description=eff_des, effect=eff)[0]
     item.save()
     return item
 
