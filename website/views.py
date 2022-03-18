@@ -228,6 +228,7 @@ class UserJoinRoomView(View):
         return redirect(request.META['HTTP_REFERER'])
 
 
+
 class UserExitRoomView(View):
     @method_decorator(login_required)
     def get(self, request):

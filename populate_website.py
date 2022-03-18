@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 
 def populate():
 
+
     users = [{"user": {'username': "test2", 'email': "test2@test.com"}, 'picture': "/profile_images/test2.jpg"},
              {"user": {'username': "test3", 'email': "test3@test.com"}, 'picture': "/profile_images/test3.jpg"}]
 
@@ -44,7 +45,7 @@ def populate():
         print("monster {name} created".format(name=m.name))
 
     for room in rooms:
-        r = add_room(room["name"])
+        r = add_room(room["name"],room["image"])
         initialised_rooms.append(r)
         print("room {name} created".format(name=r.name))
 
@@ -68,14 +69,15 @@ def add_monster(name, picture):
     return monster
 
 
-def add_room(name):
-    room = Room.objects.get_or_create(name=name)[0]
+def add_room(name,image):
+    room = Room.objects.get_or_create(name=name,image=image)[0]
     room.save()
     return room
 
 
 def add_item(name, p=0, eff_des="", eff=0, pic=""):
     item = Item.objects.get_or_create(name=name, price=p, effect_description=eff_des, effect=eff, picture=pic)[0]
+    
     item.save()
     return item
 
