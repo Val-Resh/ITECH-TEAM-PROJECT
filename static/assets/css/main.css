@@ -1546,6 +1546,11 @@ body.landing #header {
 #home .content #room_form{
   width: 100vh;
 }
+
+#room {
+  overflow: scroll;
+}
+
 #id_name {
   border: 1px solid #ccc;
   padding: 7px 0px;
