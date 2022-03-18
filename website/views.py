@@ -23,7 +23,9 @@ def index(request):
         else:
             print(form.errors)
 
-    room_list = Room.objects.order_by('-name')[:4]
+    room_list = Room.objects.order_by('-name')
+    for i in range(len(room_list)):
+        room_list[i].image_id = (i % 7)+1
     return render(request, 'index.html', {'form': form, 'rooms': room_list})
 
 
@@ -71,9 +73,9 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
     return render(request, 'register.html',
-                  context = {'user_form': user_form,
-                             'profile_form': profile_form,
-                             'registered': registered})
+                  context={'user_form': user_form,
+                           'profile_form': profile_form,
+                           'registered': registered})
 
 
 @login_required
@@ -128,7 +130,6 @@ def room(request, room_name):
         room = Room.objects.get(name=room_name)
     except Room.DoesNotExist:
         return redirect('/')
-        # return redirect(reverse('room', kwargs={'room_name_slug': room_name_slug}))
 
     try:
         users_in_room = Users.objects.filter(room=room)
@@ -169,7 +170,8 @@ class UserChooseMonsterView(View):
         except ValueError:
             return HttpResponse(-1)
         m = MonsterList.objects.get(id=monster_index)
-        selected_monster = Monster.objects.create(name=m.name, picture=m.picture, level=m.level, health=m.health, attack=m.attack, exp=m.exp)
+        selected_monster = Monster.objects.create(
+            name=m.name, picture=m.picture, level=m.level, health=m.health, attack=m.attack, exp=m.exp)
         userinfo.monster = selected_monster
         userinfo.save()
         return redirect('/userprofile')
@@ -228,7 +230,6 @@ class UserJoinRoomView(View):
         return redirect(request.META['HTTP_REFERER'])
 
 
-
 class UserExitRoomView(View):
     @method_decorator(login_required)
     def get(self, request):
@@ -243,6 +244,3 @@ class UserExitRoomView(View):
         message = userinfo.exit_room()
         userinfo.save()
         return HttpResponse(message)
-
-
-

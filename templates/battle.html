@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block css_block %}
-    <link rel="stylesheet" href="{% static 'assets/css/battle.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/css/battle.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -11,13 +11,21 @@ User Profile
 {% endblock %}
 
 {% block body_block %}
-    <section class="battle">
+<section class="battle">
+
+    <div>
         <div class="win-display">
             <div class="btn-info btn-1">Combat Result: {{ winner }} win!!</div>
+
         </div>
         <div id="left">
             <div class="card">
+                {% if user.picture %}
+                <div class="avatar" style="background-image: url({{ MEDIA_URL }}{{ user.picture }})">
+                </div>
+                {% else %}
                 <div class="avatar"></div>
+                {% endif %}
                 <div class="userinfomain">
                     <div class="info">{{ user.username }}</div>
                     <div class="info2">Monster: {{ userinfo.monster.name }}</div>
@@ -41,7 +49,12 @@ User Profile
         </div><!-- left -->
         <div id="right">
             <div class="card2">
+                {% if opponent_userinfo.picture %}
+                <div class="avatar2" style="background-image: url({{ MEDIA_URL }}{{ opponent_userinfo.picture }})">
+                </div>
+                {% else %}
                 <div class="avatar2"></div>
+                {% endif %}
                 <div class="userinfomain">
                     <div class="info">{{ opponent_userinfo.user.username }}</div>
                     <div class="info2">Monster: {{ opponent_userinfo.monster.name }}</div>
@@ -63,8 +76,14 @@ User Profile
                 </div>
             </div><!-- card -->
         </div>
-    </section>
-{% endblock %}
 
-{% block scripts_block %}
+        <div>
+        </div>
+    </div>
+</section>
+<div>
+    <div class="backbutton back-button-battle">
+        <a href="/room/{{opponent_userinfo.room.name}}" class="btn-info btn-1">Back</a>
+    </div>
+</div>
 {% endblock %}
