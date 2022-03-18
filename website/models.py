@@ -23,10 +23,14 @@ class MonsterList(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=MAX_NAME_LENGTH)
     picture = models.ImageField(upload_to='monster_images', blank=True)
-    level = models.IntegerField(default=STARTING_LEVEL, validators=[MaxValueValidator(MAX_LEVEL), MinValueValidator(STARTING_LEVEL)])
-    health = models.IntegerField(default=STARTING_HEALTH, validators=[MaxValueValidator(MAX_HP), MinValueValidator(0)])
-    attack = models.IntegerField(default=STARTING_ATTACK, validators=[MaxValueValidator(MAX_AP), MinValueValidator(STARTING_ATTACK)])
-    exp = models.IntegerField(default=0, validators=[MaxValueValidator(MAX_EXP), MinValueValidator(0)])
+    level = models.IntegerField(default=STARTING_LEVEL, validators=[
+                                MaxValueValidator(MAX_LEVEL), MinValueValidator(STARTING_LEVEL)])
+    health = models.IntegerField(default=STARTING_HEALTH, validators=[
+                                 MaxValueValidator(MAX_HP), MinValueValidator(0)])
+    attack = models.IntegerField(default=STARTING_ATTACK, validators=[
+                                 MaxValueValidator(MAX_AP), MinValueValidator(STARTING_ATTACK)])
+    exp = models.IntegerField(default=0, validators=[
+                              MaxValueValidator(MAX_EXP), MinValueValidator(0)])
 
 
 # Save monsters' data of each user
@@ -45,12 +49,16 @@ class Monster(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=MAX_NAME_LENGTH)
     picture = models.ImageField(upload_to='monster_images', blank=True)
-    level = models.IntegerField(default=STARTING_LEVEL, validators=[MaxValueValidator(MAX_LEVEL), MinValueValidator(STARTING_LEVEL)])
-    health = models.IntegerField(default=STARTING_HEALTH, validators=[MaxValueValidator(MAX_HP), MinValueValidator(0)])
-    attack = models.IntegerField(default=STARTING_ATTACK, validators=[MaxValueValidator(MAX_AP), MinValueValidator(STARTING_ATTACK)])
-    exp = models.IntegerField(default=0, validators=[MaxValueValidator(MAX_EXP), MinValueValidator(0)])
+    level = models.IntegerField(default=STARTING_LEVEL, validators=[
+                                MaxValueValidator(MAX_LEVEL), MinValueValidator(STARTING_LEVEL)])
+    health = models.IntegerField(default=STARTING_HEALTH, validators=[
+                                 MaxValueValidator(MAX_HP), MinValueValidator(0)])
+    attack = models.IntegerField(default=STARTING_ATTACK, validators=[
+                                 MaxValueValidator(MAX_AP), MinValueValidator(STARTING_ATTACK)])
+    exp = models.IntegerField(default=0, validators=[
+                              MaxValueValidator(MAX_EXP), MinValueValidator(0)])
 
-    image = models.CharField(max_length=MAX_URL_LENGTH,blank=True)
+    image = models.CharField(max_length=MAX_URL_LENGTH, blank=True)
 
     # method to level up a monster.
     def level_up(self):
@@ -84,8 +92,10 @@ class Item(models.Model):
     MAX_URL_LENGTH = 200
 
     name = models.CharField(unique=True, max_length=MAX_NAME_LENGTH)
-    price = models.IntegerField(validators=[MaxValueValidator(MAX_PRICE, MinValueValidator(0))])
-    effect_description = models.CharField(null=False, max_length=MAX_EFFECT_DESCRIPTION)
+    price = models.IntegerField(
+        validators=[MaxValueValidator(MAX_PRICE, MinValueValidator(0))])
+    effect_description = models.CharField(
+        null=False, max_length=MAX_EFFECT_DESCRIPTION)
     effect = models.IntegerField(null=False)
     picture = models.ImageField(upload_to='item_images', blank=True)
 
@@ -98,6 +108,7 @@ class Room(models.Model):
     name = models.CharField(unique=True, max_length=MAX_NAME_LENGTH)
 
 
+# Custom User Model
 class Users(models.Model):
     MAX_COINS = 1000
     MAX_PASSWORD_LENGTH = 30
@@ -106,11 +117,15 @@ class Users(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    coins = models.IntegerField(default=0, validators=[MaxValueValidator(MAX_COINS),MinValueValidator(0)])
-    wins = models.IntegerField(default=0, validators=[MaxValueValidator(MAX_WINS),MinValueValidator(0)])
+    coins = models.IntegerField(default=0, validators=[
+                                MaxValueValidator(MAX_COINS), MinValueValidator(0)])
+    wins = models.IntegerField(default=0, validators=[
+                               MaxValueValidator(MAX_WINS), MinValueValidator(0)])
     last_join_time = models.DateTimeField(null=True)
-    monster = models.OneToOneField(Monster, on_delete=models.SET_NULL, default=None, null=True)
-    room = models.ForeignKey(Room, null=True, on_delete=models.SET_NULL, default=None)
+    monster = models.OneToOneField(
+        Monster, on_delete=models.SET_NULL, default=None, null=True)
+    room = models.ForeignKey(
+        Room, null=True, on_delete=models.SET_NULL, default=None)
 
     # Method to add coins to a User.
     def add_coins(self, coin_amount):
@@ -190,11 +205,3 @@ class Users(models.Model):
 
     def __str__(self):
         return self.user.username
-
-
-
-
-
-
-
-
