@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block css_block %}
     <link rel="stylesheet" href="{% static 'assets/css/roomcards.css' %}" />
@@ -40,7 +40,7 @@ Home
                     way to make your monster stronger. If you find learning boring, you can also
                     make your monster fight other people's monsters. I hope you can have a good time here.
                 </p>
-                <p><a class="btn-info btn-1" href="login.html">Create a room</a></p>
+                <p><a class="btn-info btn-1" href="{% url 'login' %}">Create a room</a></p>
                 <br/>
                 <p><a class="btn-info btn-2 scrolly" href="#room">Join a room</a></p>
 
