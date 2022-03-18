@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -12,38 +13,38 @@ Shop
 {% block body_block %}
 <div class="wrapper">
 	<h1>Shop</h1>
-	{% if user.monster %}
-	<div class="cols">
-		{% if items %}
-		{% for i in items %}
-		<div class="col buy_item_card" item_id="{{i.id}}" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
-					<div class="inner">
-						<p>{{ i.name }}</p>
-						<span>Cost: {{ i.price }}</span>
-						<div>{{ i.effect_description }} + {{ i.effect }}</div>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Click to buy {{ i.name }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		{% endfor %}
-		{% else %}
-		<strong>There are no items present. Please run populate script first</strong>
-		{% endif %}
-	</div>
+	{% if mon %}
+        <div class="cols">
+            {% if items %}
+            {% for i in items %}
+            <div class="col buy_item_card" item_id="{{ i.id }}" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front" style="background-image: url({{ MEDIA_URL }}{{ i.picture }}">
+                        <div class="inner">
+                            <p>{{ i.name }}</p>
+                            <span>Cost: {{ i.price }}</span>
+                            <div>{{ i.effect_description }} + {{ i.effect }}</div>
+                        </div>
+                    </div>
+                    <div class="back" style="background-image: url({{ MEDIA_URL }}{{ i.picture }}">
+                        <div class="inner">
+                            <p>Click to buy {{ i.name }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+                <strong>There are no items present. Please run populate script first</strong>
+            {% endif %}
+        </div>
 	{% else %}
-	<div class="cols">
-		<div class="flex-center">
-			<h3>You have no monsters. Please choose monster first</h3>
-			<a href="/monster" class="button primary">Choose monster</a>
-		</div>
-	</div>
+        <div class="cols">
+            <div class="flex-center">
+                <h3>You have no monsters. Please choose monster first!</h3><br />
+                <p><a href="/monster_list" class="btn-info btn-1" >Choose monster</a></p>
+            </div>
+        </div>
 	{% endif %}
 </div>
 {% endblock %}

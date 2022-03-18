@@ -4,7 +4,7 @@
 {% block css_block %}
     <link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/roomcards.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -14,7 +14,7 @@ Login
 {% block body_block %}
 <section id="banner">
 	<div>
-		<form id="login_form" method="post" action="{%url 'login' %}">
+		<form id="login_form" method="post" action="{% url 'login' %}">
 			<h3>Login</h3>
 			{% csrf_token %}
 			<label for="username">Username</label>
@@ -23,7 +23,7 @@ Login
 			<label for="password">Password</label>
 			<input name="password" type="password" placeholder="Password" id="password">
 			{{login_message}}
-			<button class="btn-info btn-1" value="submit">Log in</button>
+			<input type="submit" class="btn-info btn-1" value="Log In"></input>
 			<p>Didn’t have an account? Go to <a href="/register" >Register</a></p>
 		</form>
 	</div>

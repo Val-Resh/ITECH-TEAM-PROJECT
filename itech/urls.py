@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from website import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -23,19 +25,17 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
-    path('shop/', views.shop, name='shop'),
-    path('monster/', views.monster, name='monster'),
-    path('room/<room_name>/', views.room, name='room'),
     path('userprofile/', views.userprofile, name='user-profile'),
+    path('monster_list/', views.monster_list, name='monster_list'),
+    path('shop/', views.shop, name='shop'),
+    path('room/<room_name>/', views.room, name='room'),
     path('create_room/', views.index, name='create_room'),
     path('battle/', views.battle, name='battle'),
 
     # AJAX
+    path('choose_monster/', views.UserChooseMonsterView.as_view(), name='choose_monster'),
+    path('buy_item/', views.UserBuyItemView.as_view(), name='buy_item'),
     path('join_room/', views.UserJoinRoomView.as_view(), name='join_room'),
     path('exit_room/', views.UserExitRoomView.as_view(), name='exit_room'),
-    path('buy_item/', views.UserBuyItemView.as_view(), name='buy_item'),
-    path('choose_monster/', views.UserChooseMonsterView.as_view(),
-         name='choose_monster'),
-    path("battle-user/", views.battle_user, name="battle-user"),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,27 +13,27 @@ User Profile
 {% block body_block %}
     <section class="battle">
         <div class="win-display">
-            <div class="btn-info btn-1">Combat Result: Use 1 win!!</div>
+            <div class="btn-info btn-1">Combat Result: {{ winner }} win!!</div>
         </div>
         <div id="left">
             <div class="card">
                 <div class="avatar"></div>
                 <div class="userinfomain">
-                    <div class="info">Neil Zhong</div>
-                    <div class="info2">Male</div>
+                    <div class="info">{{ user.username }}</div>
+                    <div class="info2">Monster: {{ userinfo.monster.name }}</div>
                 </div>
                 <div class="divider2"></div>
                 <div class="socialinfo">
                     <div class="socialone">
-                        <span class="socialtext">1</span><br />
+                        <span class="socialtext">{{ userinfo.monster.level }}</span><br />
                         <span class="socialheading">Lv</span>
                     </div>
                     <div class="socialtwo">
-                        <span class="socialtext">20</span><br />
+                        <span class="socialtext">{{ userinfo.monster.health }}</span><br />
                         <span class="socialheading">HP</span>
                     </div>
                     <div class="socialthree">
-                        <span class="socialtext">2</span><br />
+                        <span class="socialtext">{{ userinfo.monster.attack }}</span><br />
                         <span class="socialheading">Attack</span>
                     </div>
                 </div>
@@ -43,74 +43,27 @@ User Profile
             <div class="card2">
                 <div class="avatar2"></div>
                 <div class="userinfomain">
-                    <div class="info">Marry</div>
-                    <div class="info2">Female</div>
+                    <div class="info">{{ opponent_userinfo.user.username }}</div>
+                    <div class="info2">Monster: {{ opponent_userinfo.monster.name }}</div>
                 </div>
                 <div class="divider2"></div>
                 <div class="socialinfo">
                     <div class="socialone">
-                        <span class="socialtext">1</span><br />
+                        <span class="socialtext">{{ opponent_userinfo.monster.level }}</span><br />
                         <span class="socialheading">Lv</span>
                     </div>
                     <div class="socialtwo">
-                        <span class="socialtext">18</span><br />
+                        <span class="socialtext">{{ opponent_userinfo.monster.health }}</span><br />
                         <span class="socialheading">HP</span>
                     </div>
                     <div class="socialthree">
-                        <span class="socialtext">1</span><br />
+                        <span class="socialtext">{{ opponent_userinfo.monster.attack }}</span><br />
                         <span class="socialheading">Attack</span>
                     </div>
                 </div>
             </div><!-- card -->
         </div>
-
     </section>
-
-    <!--
-    <section class="cards-wrapper-title">
-        <div class="card-grid-space">
-            <div class="num">Combat Result</div>
-        </div>
-    </section>
-        <section class="cards-wrapper-battle">
-            <div class="card-grid-space">
-                <div class="num">User 1: Neil Zhong</div>
-                <a class="card" href="https://codetheweb.blog/2017/10/06/html-syntax/" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
-                    <div>
-                        <h1>Neil Zhong</h1>
-                        <p>Email: 2516812Z@student.gla.ac.uk</p>
-                        <p>University: University Of Glasgow</p>
-                        <p>Major: Information Technology</p>
-                        <p>Age: 28</p>
-                        <div class="date">12 March 2022</div>
-                        <div class="tags">
-                            <div class="tag">Male</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-        <div class="vs">V.S.</div>
-
-
-            <div class="card-grid-space">
-                <div class="num">User 2: Tom</div>
-                <a class="card" href="https://codetheweb.blog/2017/10/09/basic-types-of-html-tags/" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/basic-types-of-html-tags/cover.jpg')">
-                    <div>
-                        <h1>Basic types of HTML tags</h1>
-                        <p>Learn about some of the most common HTML tags…</p>
-                        <div class="date">9 Oct 2017</div>
-                        <div class="tags">
-                            <div class="tag">Female</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
-        <div class="win-display">
-            <p class="button primary">User 1: win!!</p>
-        </div>
--->
 {% endblock %}
 
 {% block scripts_block %}

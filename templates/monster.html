@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/cards.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -12,38 +13,38 @@ Choose monster
 {% block body_block %}
 <div class="wrapper" id="monster_content">
 	<h1>Monster</h1>
-
-	{% if user.monster %}
-	<h3>You already had monster.</h3>
+    <div class="backbutton">
+        <a href="/userprofile" class="btn-info btn-1">Back</a>
+    </div>
+	{% if m %}
+	    <h3>You already had monster.</h3>
 	{% else %}
-	<div class="cols">
-		{% if monsters %}
-		{% for m in monsters %}
-		<div class="col choose_monster_card" monster_index="{{m.index}}" ontouchstart="this.classList.toggle('hover');">
-			<div class="container">
-				<div class="front" style="background-image: url(https://unsplash.it/500/500/)">
-					<div class="inner">
-						<p>{{ m.name }}</p>
-						<span>level: 1</span>
-						<div>HP: {{ m.health }} </div>
-						<div>ATK: {{ m.attack }} </div>
-					</div>
-				</div>
-				<div class="back">
-					<div class="inner">
-						<p>Click to choose {{ m.name }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		{% endfor %}
-		{% else %}
-		<strong>There are no monsters present. Please run populate script first</strong>
-		{% endif %}
-	</div>
+        <div class="cols">
+            {% if monsters %}
+                {% for mon in monsters %}
+                    <div class="col choose_monster_card" monster_index="{{ mon.id }}" ontouchstart="this.classList.toggle('hover');">
+                        <div class="container">
+                            <div class="front" style="background-image: url({{ MEDIA_URL }}{{ mon.picture }});">
+                                <div class="inner">
+                                    <p>{{ mon.name }}</p>
+                                    <span>level: 1</span>
+                                    <div>HP: {{ mon.health }} </div>
+                                    <div>ATK: {{ mon.attack }} </div>
+                                </div>
+                            </div>
+                            <div class="back" style="background-image: url({{ MEDIA_URL }}{{ mon.picture }});">
+                                <div class="inner">
+                                    <p>Click to choose {{ mon.name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <strong>There are no monsters present. Please run populate script first</strong>
+            {% endif %}
+        </div>
 	{% endif %}
-	<a href="/userprofile" class="button primary">Back</a>
 </div>
 {% endblock %}
 

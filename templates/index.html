@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block css_block %}
-    <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/roomcards.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
 {% endblock %}
 
@@ -14,14 +14,36 @@ Home
     <section id="home">
         <div class="content">
             <h2>Start to Study</h2>
-            <p class="intro">Welcome to studymonster, an online self-study website. After you sign up,
-                you can create a new online self-study room, or you can choose to join the
-                room created by others according to your own preferences. After you register,
-                you can choose a monster you like to cultivate. Learning is the most important
-                way to make your monster stronger. If you find learning boring, you can also
-                make your monster fight other people's monsters. I hope you can have a good time here.</p>
-            <a class="btn-info btn-1">Create a room</a>
-            <a class="btn-info btn-2" >Join a room</a>
+            {% if user.is_authenticated %}
+                <p class="intro">Welcome to studymonster, an online self-study website.
+                    Now, you can create a new online self-study room, or you can choose to join the
+                    room created by others according to your own preferences. I hope you can have a
+                    good time here.</p>
+                <h3 class="create_room_title">Create a room</h3>
+                <form id="room_form" method="post" action="{% url 'create_room' %}">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                        {{ field.errors }}
+                        {{ field.help_text }}
+                        {{ field }}
+                    {% endfor %}
+                    <input type="submit" class="btn-info btn-1" value="Create room" />
+                </form>
+                <h3 class="join_room_title">Join a room</h3>
+                <p><a class="btn-info btn-2 scrolly" href="#room">Join a room</a></p>
+            {% else %}
+                <p class="intro">Welcome to studymonster, an online self-study website. After you sign up,
+                    you can create a new online self-study room, or you can choose to join the
+                    room created by others according to your own preferences. After you register,
+                    you can choose a monster you like to cultivate. Learning is the most important
+                    way to make your monster stronger. If you find learning boring, you can also
+                    make your monster fight other people's monsters. I hope you can have a good time here.
+                </p>
+                <p><a class="btn-info btn-1" href="login.html">Create a room</a></p>
+                <br/>
+                <p><a class="btn-info btn-2 scrolly" href="#room">Join a room</a></p>
+
+            {% endif %}
         </div>
         <a href="#room" class="goto-next scrolly">Next</a>
     </section>
@@ -34,18 +56,18 @@ Home
 
             {% if rooms %}
             {% for r in rooms %}
-            <a class="card" href="/room/">
+            <a class="card" href="/room/{{ r.name }}">
                 <div class="card__background"
-                    style="background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)">
+                    style='background-image: url("{{ MEDIA_URL }}/room_images/{{ r.id }}.jpg")'>
                 </div>
                 <div class="card__content">
-                    <p class="card__category">Room name</p>
+                    <p class="card__category">Room Name:</p>
                     <h3 class="card__heading">{{ r.name }}</h3>
                 </div>
             </a>
             {% endfor %}
             {% else %}
-            <strong>There are no rooms present.</strong>
+                <strong>There are no rooms present.</strong>
             {% endif %}
         </div>
 

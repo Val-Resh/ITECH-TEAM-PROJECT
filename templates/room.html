@@ -4,7 +4,7 @@
 {% block css_block %}
     <link rel="stylesheet" href="{% static 'assets/css/room.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/roomcards.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -16,7 +16,7 @@ Room
     <div class="user-room">
         <section class="room-name">
             <div class="space">
-                <div>Room name</div>
+                <div>Room: {{ room.name }}</div>
             </div>
         </section>
 
@@ -25,32 +25,39 @@ Room
             <div class="room-myuser-time">
                 <div class="strong">Your study time:</div>
                 <div class="ymd">
-                    <span class="clock" id="room_clock"></span>
+                    {% if userinfo.room %}
+                        <span class="clock" id="room_clock"></span>
+                    {% else %}
+                        <img src="{% static 'images/zerotime.png' %}" alt="" width="385" height="67"/>
+                    {% endif %}
                     <div class="strong">day : hour : minute</div>
                     <div class="strong">(Every 1 minute = 1 coin)</div>
                     <div class="join">
-                        {% if user.room %}
+                        {% if userinfo.room %}
                             <p class="show_uesr_in_room">You're in this room.</p>
                             <button class="btn-info btn-2" id="exit_room_btn">Exit this room</button>
                         {% else %}
-                            <button class="btn-info btn-1" id="join_room_btn" room_name="{{ room.name }}">Join this room</button>
+                            {% if mon %}
+                                <button class="btn-info btn-1" id="join_room_btn" room_name="{{ room.name }}">Join this room</button>
+                            {% else %}
+                                <p class="show_uesr_in_room">Please select your Monster!Go to <a href="/userprofile">UserProfile</a>!</p>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
             </div>
 
             <!-- Monster Pic -->
-            <div class="room-myuser-monster">
-                <img src="{% static 'images/hero.png' %}" alt="" height="200" />
+            <div class="room-myuser-monster" style="background-image: url({{ MEDIA_URL }}{{ mon.picture }});">
             </div>
 
             <!-- Monster Attribute -->
             <div class="room-myuser-monster-attribute">
-                <strong>Monster Name :</strong> Eve Love<br>
-                <strong>level :</strong> 1<br>
-                <strong>ATK point :</strong> 2<br>
-                <strong>HP :</strong> 100/100<br>
-                <strong>Exp :</strong> 1/1000<br>
+                <strong>Monster Name :</strong> {{ mon.name }}<br>
+                <strong>level :</strong> {{ mon.level }}<br>
+                <strong>ATK point :</strong> {{ mon.attack }}<br>
+                <strong>HP :</strong> {{ mon.health }}<br>
+                <strong>Exp :</strong> {{ mon.exp }}/1000<br>
                 (Need more 999 exp to level up)<br>
             </div>
         </section>
@@ -63,25 +70,27 @@ Room
 
         <div class="card-grid">
             {% if users %}
-            {% for u in users %}
-            {% if u != user %}
-            <a class="card" href="#">
-                <div class="card__background" style="background-image: url(https://unsplash.it/200/200/)">
-                </div>
-                <div class="card__content">
-                    <h3 class="card__heading">{{ u.username }}</h3>
-
-                    <h4>Level: {{ u.monster.level }}</h4>
-                    <h4>HP: {{ u.monster.health }}</h4>
-                    <h4>ATK :{{ u.monster.attack }}</h4>
-
-                    <div class="button primary" href="/battle">Battle</div>
-                </div>
-            </a>
-            {% endif %}
-            {% endfor %}
+                {% for u in users %}
+                    {% if u != userinfo %}
+                    <div class="card" style="height: 75%;">
+                        <div class="card__background" style="background-image: url({{ MEDIA_URL }}{{ u.picture }})">
+                        </div>
+                        <div class="card__content">
+                            <h3 class="card__heading">{{ u.user.username }}</h3>
+                            <h4>Monster: {{ u.monster.name }}</h4>
+                            <h4>Level: {{ u.monster.level }}</h4>
+                            <h4 style="padding-bottom: 0;">HP: {{ u.monster.health }}</h4>
+                            <form action="{% url 'battle' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="opponent_user_name" value="{{ u.user.username }}" />
+                                <input type="submit" class="btn-info btn-5" value="Battle" />
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
             {% else %}
-            <strong>There are no user in this room.</strong>
+                <strong>There are no user in this room.</strong>
             {% endif %}
         </div>
     </section>
