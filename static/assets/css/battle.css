@@ -21,9 +21,10 @@
 }
 
 .back-button-battle{
-    margin-bottom: 2rem;
-    margin-left: 30rem;
-    margin-right: 30rem;
+    position: absolute;
+    bottom: 8em;
+    z-index: 99;
+    left: calc(50% - 64px);
     text-align: center;
 }
 
