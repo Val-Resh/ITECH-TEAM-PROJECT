@@ -68,6 +68,7 @@ body{
 }
 
 .card__background{
+    background-color: antiquewhite;
     background-size: cover;
     background-position: center;
     border-radius: var(--spacing-l);

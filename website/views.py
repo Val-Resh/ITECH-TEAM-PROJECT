@@ -130,7 +130,6 @@ def room(request, room_name):
         room = Room.objects.get(name=room_name)
     except Room.DoesNotExist:
         return redirect('/')
-        # return redirect(reverse('room', kwargs={'room_name_slug': room_name_slug}))
 
     try:
         users_in_room = Users.objects.filter(room=room)

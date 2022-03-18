@@ -10,60 +10,64 @@ User Profile
 {% endblock %}
 
 {% block body_block %}
-    <section class="userprofile">
-        <div id="left">
-            <div class="card">
-                <div class="avatar" style="background-image: url({{ MEDIA_URL }}{{ picture }});"></div>
-                <div class="userinfomain">
-                    <div class="info">{{ user.username }}</div>
-                    <div class="info2">{{ user.email }}</div>
-                </div>
-                <div class="divider"></div>
-                <div class="socialinfo" >
-                    <div class="socialone" style="width: 50%;">
-                        <span class="socialtext">{{ coins }}</span><br />
-                        <span class="socialheading">Coins</span>
-                    </div>
-                    <div class="socialtwo" style="width: 60%;">
-                        <span class="socialtext">{{ wins }}</span><br />
-                        <span class="socialheading">Wins</span>
-                    </div>
-                </div>
-            </div><!-- card -->
-        </div><!-- left -->
-        <div id="right">
-            {% if mon %}
-                <div class="card2">
-                    <div class="avatar2" style="background-image: url({{ MEDIA_URL }}{{ mon.picture }});"></div>
-                    <div class="userinfomain">
-                        <div class="info">{{ mon.name }}</div>
-                        <div class="info2">Exp: {{ mon.exp }} / 1000</div>
-                    </div>
-                    <div class="divider2"></div>
-                    <div class="socialinfo">
-                        <div class="socialone">
-                            <span class="socialtext">{{ mon.level }}</span><br />
-                            <span class="socialheading">Lv</span>
-                        </div>
-                        <div class="socialtwo">
-                            <span class="socialtext">{{ mon.health }}</span><br />
-                            <span class="socialheading">HP</span>
-                        </div>
-                        <div class="socialthree">
-                            <span class="socialtext">{{ mon.attack }}</span><br />
-                            <span class="socialheading">Attack</span>
-                        </div>
-                    </div>
-                </div><!-- card -->
+<section class="userprofile">
+    <div id="left">
+        <div class="card">
+            {% if picture %}
+            <div class="avatar" style="background-image: url({{ MEDIA_URL }}{{ picture }});"></div>
             {% else %}
-                <a href="/monster_list" alt="" >
-                    <div class="add-monster">
-                        <img src="{% static 'images/add.png' %}" alt="" height="50" />
-                    </div>
-                </a>
+            <div class="avatar"></div>
             {% endif %}
-        </div>
-    </section>
+            <div class="userinfomain">
+                <div class="info">{{ user.username }}</div>
+                <div class="info2">{{ user.email }}</div>
+            </div>
+            <div class="divider"></div>
+            <div class="socialinfo">
+                <div class="socialone" style="width: 50%;">
+                    <span class="socialtext">{{ coins }}</span><br />
+                    <span class="socialheading">Coins</span>
+                </div>
+                <div class="socialtwo" style="width: 60%;">
+                    <span class="socialtext">{{ wins }}</span><br />
+                    <span class="socialheading">Wins</span>
+                </div>
+            </div>
+        </div><!-- card -->
+    </div><!-- left -->
+    <div id="right">
+        {% if mon %}
+        <div class="card2">
+            <div class="avatar2" style="background-image: url({{ MEDIA_URL }}{{ mon.picture }});"></div>
+            <div class="userinfomain">
+                <div class="info">{{ mon.name }}</div>
+                <div class="info2">Exp: {{ mon.exp }} / 1000</div>
+            </div>
+            <div class="divider2"></div>
+            <div class="socialinfo">
+                <div class="socialone">
+                    <span class="socialtext">{{ mon.level }}</span><br />
+                    <span class="socialheading">Lv</span>
+                </div>
+                <div class="socialtwo">
+                    <span class="socialtext">{{ mon.health }}</span><br />
+                    <span class="socialheading">HP</span>
+                </div>
+                <div class="socialthree">
+                    <span class="socialtext">{{ mon.attack }}</span><br />
+                    <span class="socialheading">Attack</span>
+                </div>
+            </div>
+        </div><!-- card -->
+        {% else %}
+        <a href="/monster_list" alt="">
+            <div class="add-monster">
+                <img src="{% static 'images/add.png' %}" alt="" height="50" />
+            </div>
+        </a>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}
 
 {% block scripts_block %}
