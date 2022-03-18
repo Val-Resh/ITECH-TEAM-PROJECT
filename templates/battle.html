@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" href="{% static 'assets/css/battle.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
+{% endblock %}
+
+{% block title_block %}
+User Profile
+{% endblock %}
+
+{% block body_block %}
+    <section class="battle">
+        <div class="win-display">
+            <div class="btn-info btn-1">Combat Result: {{ winner }} win!!</div>
+        </div>
+        <div id="left">
+            <div class="card">
+                <div class="avatar"></div>
+                <div class="userinfomain">
+                    <div class="info">{{ user.username }}</div>
+                    <div class="info2">Monster: {{ userinfo.monster.name }}</div>
+                </div>
+                <div class="divider2"></div>
+                <div class="socialinfo">
+                    <div class="socialone">
+                        <span class="socialtext">{{ userinfo.monster.level }}</span><br />
+                        <span class="socialheading">Lv</span>
+                    </div>
+                    <div class="socialtwo">
+                        <span class="socialtext">{{ userinfo.monster.health }}</span><br />
+                        <span class="socialheading">HP</span>
+                    </div>
+                    <div class="socialthree">
+                        <span class="socialtext">{{ userinfo.monster.attack }}</span><br />
+                        <span class="socialheading">Attack</span>
+                    </div>
+                </div>
+            </div><!-- card -->
+        </div><!-- left -->
+        <div id="right">
+            <div class="card2">
+                <div class="avatar2"></div>
+                <div class="userinfomain">
+                    <div class="info">{{ opponent_userinfo.user.username }}</div>
+                    <div class="info2">Monster: {{ opponent_userinfo.monster.name }}</div>
+                </div>
+                <div class="divider2"></div>
+                <div class="socialinfo">
+                    <div class="socialone">
+                        <span class="socialtext">{{ opponent_userinfo.monster.level }}</span><br />
+                        <span class="socialheading">Lv</span>
+                    </div>
+                    <div class="socialtwo">
+                        <span class="socialtext">{{ opponent_userinfo.monster.health }}</span><br />
+                        <span class="socialheading">HP</span>
+                    </div>
+                    <div class="socialthree">
+                        <span class="socialtext">{{ opponent_userinfo.monster.attack }}</span><br />
+                        <span class="socialheading">Attack</span>
+                    </div>
+                </div>
+            </div><!-- card -->
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts_block %}
+{% endblock %}

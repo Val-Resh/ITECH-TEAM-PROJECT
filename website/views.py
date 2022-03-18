@@ -1,23 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from website.forms import UserForm, RoomForm
 from django.http import HttpResponse
 from django.urls import reverse
-from website.models import Room, Item, Monster, User
 from django.views.decorators.http import *
-
 from django.utils.decorators import method_decorator
-
 from django.views import View
-
-import re
-
-MONSTER_LISTS = [{"index":0,"name": "Pikachu", "health": "100", "attack": "10","image":"Pikachu.png"},
-                 {"index":1,"name": "Squirtle", "health": "110", "attack": "8","image":"Squirtle.png"},
-                 {"index":2,"name": "Eevee", "health": "80", "attack": "12","image":"eevee.png"},
-                 {"index":3,"name": "Charmander", "health": "90", "attack": "9","image":"Charmander.png"},
-                 {"index":4,"name": "Bulbasaur", "health": "110", "attack": "10","image":"Bulbasaur.png"}]
+from website.models import Users, Monster, MonsterList, Item, Room
+from website.forms import UserForm,  UserProfileForm
+from website.forms import RoomForm
 
 
 def index(request):
@@ -53,62 +45,35 @@ def user_login(request):
             print(f"Invalid login details: {username}, {password}")
             return render(request, 'login.html', {
                 'login_message': 'Enter the username and password incorrectly', })
-
     else:
         return render(request, 'login.html')
 
 
 def register(request):
-    # If it's a HTTP POST, we're interested in processing form data.
+    registered = False
     if request.method == 'POST':
-
         user_form = UserForm(request.POST)
-        if user_form.is_valid():
+        profile_form = UserProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            return redirect('/login')
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+            registered = True
         else:
-            print(user_form.errors)
+            print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
-
-    # Render the template depending on the context.
-    return render(request, 'register.html', context={'user_form': user_form})
-
-
-@login_required
-def shop(request):
-    item_list = Item.objects.order_by('-name')
-    return render(request, 'shop.html', {'items': item_list})
-
-
-@login_required
-def monster(request):
-    return render(request, 'monster.html', {'monsters': MONSTER_LISTS})
-
-
-@login_required
-def room(request, room_name):
-    try:
-        room = Room.objects.get(name=room_name)
-    except Room.DoesNotExist:
-        room = None
-        # return redirect(reverse('room', kwargs={'room_name_slug': room_name_slug}))
-
-    try:
-        users_in_room = User.objects.filter(room=room)
-    except User.DoesNotExist:
-        users_in_room = None
-
-    return render(request, 'room.html', {'room': room, 'users': users_in_room})
-
-
-@login_required
-def userprofile(request):
-    username = request.user.username
-    user = User.objects.get(username=username)
-    return render(request, 'user-profile.html', {'monster': user.monster})
+        profile_form = UserProfileForm()
+    return render(request, 'register.html',
+                  context = {'user_form': user_form,
+                             'profile_form': profile_form,
+                             'registered': registered})
 
 
 @login_required
@@ -118,15 +83,134 @@ def user_logout(request):
     return redirect(reverse('index'))
 
 
+@login_required
+def userprofile(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    mon = userinfo.monster
+    return render(request, 'user-profile.html', {'coins': userinfo.coins,
+                                                 'wins': userinfo.wins,
+                                                 'picture': userinfo.picture,
+                                                 'mon': mon})
+
+
+@login_required
+def monster_list(request):
+    monsters = MonsterList.objects.all()
+    return render(request, 'monster.html', {'monsters': monsters})
+
+
+@login_required
+def shop(request):
+    item_list = Item.objects.order_by('-name')
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    mon = userinfo.monster
+    return render(request, 'shop.html', {'items': item_list,
+                                         'mon': mon})
+
+
+@login_required
+def room(request, room_name):
+
+    try:
+        user = request.user
+        userinfo = Users.objects.get(user=user)
+    except Users.DoseNotExist:
+        return redirect('/login')
+
+    try:
+        mon = userinfo.monster
+    except mon.DoseNotExist:
+        mon = None
+
+    try:
+        room = Room.objects.get(name=room_name)
+    except Room.DoesNotExist:
+        return redirect('/')
+        # return redirect(reverse('room', kwargs={'room_name_slug': room_name_slug}))
+
+    try:
+        users_in_room = Users.objects.filter(room=room)
+    except Users.DoesNotExist:
+        users_in_room = None
+
+    return render(request, 'room.html', {'room': room,
+                                         'userinfo': userinfo,
+                                         'mon': mon,
+                                         'users': users_in_room})
+
+
+@login_required
+def battle(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    opponent_user_name = request.POST.get('opponent_user_name')
+    opponent_user = User.objects.get(username=opponent_user_name)
+    opponent_userinfo = Users.objects.get(user=opponent_user)
+
+    winner = userinfo.battle_user(opponent_userinfo)
+    winner.save()
+    return render(request, 'battle.html', {'userinfo': userinfo,
+                                           'opponent_userinfo': opponent_userinfo,
+                                           'winner': winner.user.username})
+
+
 #
+class UserChooseMonsterView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        user = request.user
+        monster_index = request.GET['monster_index']
+        try:
+            userinfo = Users.objects.get(user=user)
+        except Users.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        m = MonsterList.objects.get(id=monster_index)
+        selected_monster = Monster.objects.create(name=m.name, picture=m.picture, level=m.level, health=m.health, attack=m.attack, exp=m.exp)
+        userinfo.monster = selected_monster
+        userinfo.save()
+        return redirect('/userprofile')
+
+
+class UserBuyItemView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        user = request.user
+        item_id = request.GET['item_id']
+
+        try:
+            item = Item.objects.get(id=item_id)
+        except Users.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        try:
+            userinfo = Users.objects.get(user=user)
+        except Users.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+
+        # add coin to test
+        # userinfo.add_coins(100)
+
+        message = userinfo.buy_item(item)
+        userinfo.save()
+        return HttpResponse(message)
+
+
 class UserJoinRoomView(View):
     @method_decorator(login_required)
     def get(self, request):
-        username = request.user.username
+        user = request.user
         room_name = request.GET['room_name']
         try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
+            userinfo = Users.objects.get(user=user)
+        except Users.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
@@ -138,82 +222,27 @@ class UserJoinRoomView(View):
         except ValueError:
             return HttpResponse(-1)
 
-        user.add_room(room)
-        user.save()
+        userinfo.add_room(room)
+        userinfo.save()
 
         return redirect(request.META['HTTP_REFERER'])
+
 
 
 class UserExitRoomView(View):
     @method_decorator(login_required)
     def get(self, request):
-        username = request.user.username
+        user = request.user
         try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
+            userinfo = Users.objects.get(user=user)
+        except Users.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
 
-        message = user.exit_room()
-        user.save()
+        message = userinfo.exit_room()
+        userinfo.save()
         return HttpResponse(message)
 
 
-class UserChooseMonsterView(View):
-    @method_decorator(login_required)
-    def get(self, request):
-        username = request.user.username
-        monster_id = request.GET['monster_index']
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return HttpResponse(-1)
-        except ValueError:
-            return HttpResponse(-1)
 
-        m = MONSTER_LISTS[int(monster_id)]
-        monster = Monster.objects.create(
-            name=m['name'], level=1, exp=0, attack=m['attack'], health=m['health'],image=m['image'])
-        user.monster = monster
-        user.save()
-        return redirect('/userprofile')
-
-
-class UserBuyItemView(View):
-    @method_decorator(login_required)
-    def get(self, request):
-        username = request.user.username
-        item_id = request.GET['item_id']
-
-        try:
-            item = Item.objects.get(id=item_id)
-        except User.DoesNotExist:
-            return HttpResponse(-1)
-        except ValueError:
-            return HttpResponse(-1)
-
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return HttpResponse(-1)
-        except ValueError:
-            return HttpResponse(-1)
-
-        # add coin to test
-        # message = user.add_coins(100)
-        message = user.buy_item(item)
-        user.save()
-        return HttpResponse(message)
-
-
-def battle_user(request):
-    opponent_id = request.body.decode('UTF-8').strip(" ")
-    this_id = request.user.id
-
-    this_user = User.objects.get(id=this_id)
-    opponent_user = User.objects.get(id=opponent_id)
-    
-    winner = this_user.battle_user(opponent_user)
-    winner.save()
-    return HttpResponse(winner.username)

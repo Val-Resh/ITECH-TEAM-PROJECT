@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block css_block %}
-<link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
-<link rel="stylesheet" href="{% static 'assets/css/cards2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/form.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/button.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/roomcards.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -11,24 +12,25 @@ Register
 {% endblock %}
 
 {% block body_block %}
-<section id="banner">
-	<div class="content">
-		<form id="user_form" method="post" action="{%url 'register' %}" enctype="multipart/form-data">
-			{% csrf_token %}
-			<h3>Register</h3>
-			{{user_form.as_p}}
-			<!-- <label for="username">Username</label>
-					<input type="text" placeholder="Email or Phone" id="username">
+    <section id="banner">
+        {% if registered %}
+            <div class="content2">
+                <p>Thank you for registering!</p>
+                <p><a href="{% url 'login' %}">Return to the login page.</a></p>
+            </div>
+        {% else %}
+            <div>
+                <form id="register_form" style="height: 630px;" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+                    <h3>Register</h3>
 
-					<label for="password">Password</label>
-					<input type="password" placeholder="Password" id="password">
+                    {% csrf_token %}
+                    {{ user_form.as_p }}
+                    {{ profile_form.as_p }}
 
-					<label for="passwordconfirmation">Confirm Password</label>
-					<input type="password" placeholder="Confirm Password" id="passwordconfirmation"> -->
-
-			<button class="button primary">Register</button>
-			<span>Already had an account? Go to <a href="/login">Log In</a></span>
-		</form>
-	</div>
-</section>
+                    <input type="submit" class="btn-info btn-3" value="Register" />
+                    <span>Already had an account? Go to <a href="/login">Log In</a></span>
+                </form>
+            </div>
+        {% endif %}
+    </section>
 {% endblock %}

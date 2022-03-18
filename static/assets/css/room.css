@@ -1,4 +1,83 @@
 
+.room-name {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-gap: 5rem;
+    padding-top: 10rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    padding-bottom: 3rem;
+    margin: 0 auto;
+    width: max-content;
+}
+
+.space {
+    font-size: 1.5em;
+    margin-bottom: 1.2rem;
+    margin-left: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.user-room {
+    height: 100vh;
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.60), rgba(113, 255, 209, 0.2)), url("images/classroom.jpg");
+    background-size:100% 100%;
+}
+
+.room-myuser {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 200px 300px;
+    grid-gap: 5rem;
+    padding-top: 2rem;
+    padding-left: 4rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    margin: 0 auto;
+    width: max-content;
+    background-color: rgba(255, 255, 255, 0.80);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+.room-myuser-time .strong{
+    font-weight: bold;
+    padding-bottom: 2em;
+}
+
+.room-myuser-time .ymd{
+    text-align: center;
+}
+
+.room-myuser-time .ymd .strong{
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+.room-myuser-time .ymd .join{
+    font-weight: bold;
+}
+
+.room-myuser-time .ymd .join .show_uesr_in_room{
+    color: rgba(245, 68, 68, 0.75);
+    text-shadow: #596a72;
+}
+
+.room-myuser-monster{
+    height: 180px;
+    width: 180px;
+    background-size: cover;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.50);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    background-repeat: no-repeat;
+}
+
 
 .clock {
     position:relative;
