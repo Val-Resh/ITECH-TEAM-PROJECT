@@ -20,6 +20,12 @@
     text-align: center;
 }
 
+.win-display .battle-tips{
+    display: inline-block;
+    width: 70%;
+    vertical-align: center;
+}
+
 .back-button-battle{
     position: absolute;
     bottom: 8em;
