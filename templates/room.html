@@ -34,8 +34,8 @@ Room
 				<div class="strong">(Every 1 minute = 1 coin)</div>
 				<div class="join">
 					{% if userinfo.room %}
-					<p class="show_uesr_in_room">You're in this room.</p>
-					<button class="btn-info btn-2" id="exit_room_btn">Exit this room</button>
+					<p class="show_uesr_in_room">You're in <b>{{userinfo.room.name}}</b> room.</p>
+					<button class="btn-info btn-2" id="exit_room_btn">Exit room</button>
 					{% else %}
 					{% if mon %}
 					<button class="btn-info btn-1" id="join_room_btn" room_name="{{ room.name }}">Join this
