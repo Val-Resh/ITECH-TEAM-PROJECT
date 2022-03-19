@@ -58,9 +58,8 @@ class Monster(models.Model):
     exp = models.IntegerField(default=0, validators=[
                               MaxValueValidator(MAX_EXP), MinValueValidator(0)])
 
-    image = models.CharField(max_length=MAX_URL_LENGTH, blank=True)
-
     # method to level up a monster.
+
     def level_up(self):
         if self.level < self.MAX_LEVEL and self.exp >= self.MAX_EXP:
             self.level += 1

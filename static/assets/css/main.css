@@ -1264,7 +1264,6 @@ input[type="button"]:disabled,
 
 .wrapper.style2 input[type="text"]:focus,
 .wrapper.style2 input[type="password"]:focus,
-.wrapper.style2 input[type="email"]:focus,
 .wrapper.style2 select:focus,
 .wrapper.style2 textarea:focus {
   border-color: rgba(255, 255, 255, 0.5);
