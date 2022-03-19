@@ -8,7 +8,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'email', )
+        fields = ('username', 'password', )
 
 
 class UserProfileForm(forms.ModelForm):
@@ -18,7 +18,8 @@ class UserProfileForm(forms.ModelForm):
 
 
 class RoomForm(forms.ModelForm):
-    name = forms.CharField(max_length=Room.MAX_NAME_LENGTH, help_text="Room Name")
+    name = forms.CharField(
+        max_length=Room.MAX_NAME_LENGTH, help_text="Room Name")
 
     class Meta:
         model = Room
