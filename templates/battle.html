@@ -22,8 +22,8 @@ User Profile
         </div>
         <div id="left">
             <div class="card">
-                {% if userinfo.picture %}
-                <div class="avatar" style="background-image: url({{ MEDIA_URL }}{{ user.picture }})">
+                {% if userinfo.monster.picture %}
+                <div class="avatar" style="background-image: url({{ MEDIA_URL }}{{ userinfo.monster.picture }})">
                 </div>
                 {% else %}
                 <div class="avatar"></div>
@@ -51,8 +51,9 @@ User Profile
         </div><!-- left -->
         <div id="right">
             <div class="card2">
-                {% if opponent_userinfo.picture %}
-                <div class="avatar2" style="background-image: url({{ MEDIA_URL }}{{ opponent_userinfo.picture }})">
+                {% if opponent_userinfo.monster.picture %}
+                <div class="avatar2"
+                    style="background-image: url({{ MEDIA_URL }}{{ opponent_userinfo.monster.picture }})">
                 </div>
                 {% else %}
                 <div class="avatar2"></div>
