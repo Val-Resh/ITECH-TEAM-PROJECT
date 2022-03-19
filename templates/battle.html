@@ -22,7 +22,7 @@ User Profile
         </div>
         <div id="left">
             <div class="card">
-                {% if user.picture %}
+                {% if userinfo.picture %}
                 <div class="avatar" style="background-image: url({{ MEDIA_URL }}{{ user.picture }})">
                 </div>
                 {% else %}
